@@ -5,7 +5,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/monitor"
 )
 
-type routerFiberGeneral interface {
+type routerFiberMisc interface {
 	NotFound() fiber.Handler
 }
 
@@ -17,23 +17,23 @@ type routerFiberCustomer interface {
 }
 
 type router struct {
-	routerFiberGeneral
+	routerFiberMisc
 	routerFiberCustomer
 }
 
-func NewRouter(rfGeneral routerFiberGeneral, rfCustomer routerFiberCustomer) *router {
+func NewRouter(rfMisc routerFiberMisc, rfCustomer routerFiberCustomer) *router {
 	return &router{
-		routerFiberGeneral:  rfGeneral,
+		routerFiberMisc:  rfMisc,
 		routerFiberCustomer: rfCustomer,
 	}
 }
 
 func (r *router) Route(app fiber.Router, logger func(*fiber.Ctx) error) {
 	route := app.Group("api/v1")
-	route.Post("/customer", logger, r.CreateCustomer())
-	route.Get("/customer", logger, r.GetListCustomer())
-	route.Put("/customer/:customerId", logger, r.UpdateCustomerById())
-	route.Delete("/customer/:customerId", logger, r.DeleteCustomerById())
+	route.Post("/customers", logger, r.CreateCustomer())
+	route.Get("/customers", logger, r.GetListCustomer())
+	route.Put("/customers/:customerId", logger, r.UpdateCustomerById())
+	route.Delete("/customers/:customerId", logger, r.DeleteCustomerById())
 	app.Get("/monitor", monitor.New(monitor.Config{Title: "Invoice App Monitoring"}))
 	app.Use(r.NotFound())
 }

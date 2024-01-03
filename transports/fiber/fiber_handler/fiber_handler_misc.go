@@ -13,7 +13,7 @@ type handlerMisc struct {
 	ports.ServiceMisc
 }
 
-func NewGeneralHandler(sMisc ports.ServiceMisc) *handlerMisc {
+func NewMiscHandler(sMisc ports.ServiceMisc) *handlerMisc {
 	return &handlerMisc{
 		ServiceMisc: sMisc,
 	}

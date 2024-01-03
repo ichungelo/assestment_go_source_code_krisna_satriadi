@@ -35,10 +35,10 @@ func main() {
 		appPort     = os.Getenv("APP_PORT")
 		gormAdapter = gormadapter.NewGormAdapter(gormconnection.DB)
 
-		generalService = services.NewServiceCustomer(gormAdapter)
-		generalHandler = fiberhandler.NewGeneralHandler(generalService)
+		miscService = services.NewServiceMisc(gormAdapter)
+		miscHandler = fiberhandler.NewMiscHandler(miscService)
 
-		router = fiberrouter.NewRouter(generalHandler, nil)
+		router = fiberrouter.NewRouter(miscHandler, nil)
 	)
 	app := fiber.New()
 
