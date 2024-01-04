@@ -35,7 +35,7 @@ func (h *handlerInvoice) CreateInvoice() fiber.Handler {
 
 		err := json.Unmarshal(c.Body(), &req)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
 				Code: utils.ERR_FAILED_UNMARSHAL_JSON,
 				Err:  err,
@@ -46,9 +46,9 @@ func (h *handlerInvoice) CreateInvoice() fiber.Handler {
 
 		err = utils.Validate(req)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 
@@ -70,7 +70,7 @@ func (h *handlerInvoice) GetListInvoice() fiber.Handler {
 
 		err := c.QueryParser(&req)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
 				Code: utils.ERR_PARSE_DATA,
 				Err:  err,
@@ -84,9 +84,9 @@ func (h *handlerInvoice) GetListInvoice() fiber.Handler {
 
 		err = utils.Validate(req)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 
@@ -108,7 +108,7 @@ func (h *handlerInvoice) GetInvoiceById() fiber.Handler {
 
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
 				Code: utils.ERR_PARSE_DATA,
 				Err:  err,
@@ -121,9 +121,9 @@ func (h *handlerInvoice) GetInvoiceById() fiber.Handler {
 
 		err = utils.Validate(req)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 
@@ -145,7 +145,7 @@ func (h *handlerInvoice) UpdateInvoiceById() fiber.Handler {
 
 		err := json.Unmarshal(c.Body(), &req)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
 				Code: utils.ERR_FAILED_UNMARSHAL_JSON,
 				Err:  err,
@@ -156,7 +156,7 @@ func (h *handlerInvoice) UpdateInvoiceById() fiber.Handler {
 
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
 				Code: utils.ERR_PARSE_DATA,
 				Err:  err,
@@ -169,9 +169,9 @@ func (h *handlerInvoice) UpdateInvoiceById() fiber.Handler {
 
 		err = utils.Validate(req)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 
@@ -193,7 +193,7 @@ func (h *handlerInvoice) DeleteInvoiceById() fiber.Handler {
 
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
 				Code: utils.ERR_PARSE_DATA,
 				Err:  err,
@@ -206,9 +206,9 @@ func (h *handlerInvoice) DeleteInvoiceById() fiber.Handler {
 
 		err = utils.Validate(req)
 		if err != nil {
-					utils.Error(err, nil)
+			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 

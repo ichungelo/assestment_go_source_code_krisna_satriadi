@@ -45,7 +45,7 @@ func (h *handlerQuantity) DeleteQuantityById() fiber.Handler {
 		if err != nil {
 			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 

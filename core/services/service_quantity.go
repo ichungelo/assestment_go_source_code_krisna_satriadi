@@ -21,7 +21,7 @@ func (s *serviceQuantity) DeleteQuantityById(req *model.RequestDeleteQuantityByI
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "999",
+			Code: utils.ERR_FAILED_DELETE_QUANTITY,
 			Err:  err,
 		}
 		return &errData

@@ -46,7 +46,7 @@ func (h *handlerCustomer) CreateCustomer() fiber.Handler {
 		if err != nil {
 			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 
@@ -106,7 +106,7 @@ func (h *handlerCustomer) UpdateCustomerById() fiber.Handler {
 		if err != nil {
 			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 
@@ -143,7 +143,7 @@ func (h *handlerCustomer) DeleteCustomerById() fiber.Handler {
 		if err != nil {
 			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 

@@ -27,7 +27,7 @@ func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *util
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "999",
+			Code: utils.ERR_FAILED_CREATE_ITEM_TYPE,
 			Err:  err,
 		}
 		return &errData
@@ -42,7 +42,7 @@ func (s *serviceItemType) GetListItemType() ([]model.ResponseGetListItemType, *u
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "999",
+			Code: utils.ERR_FAILED_GET_ITEM_TYPE,
 			Err:  err,
 		}
 		return nil, &errData
@@ -63,7 +63,7 @@ func (s *serviceItemType) UpdateItemTypeById(req *model.RequestUpdateItemTypeByI
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "999",
+			Code: utils.ERR_FAILED_UPDATE_ITEM_TYPE,
 			Err:  err,
 		}
 		return &errData
@@ -78,7 +78,7 @@ func (s *serviceItemType) DeleteItemTypeById(req *model.RequestDeleteItemTypeByI
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "999",
+			Code: utils.ERR_FAILED_DELETE_ITEM_TYPE,
 			Err:  err,
 		}
 		return &errData

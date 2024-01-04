@@ -46,7 +46,7 @@ func (h *handlerItem) CreateItem() fiber.Handler {
 		if err != nil {
 			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 
@@ -106,7 +106,7 @@ func (h *handlerItem) UpdateItemById() fiber.Handler {
 		if err != nil {
 			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 
@@ -143,7 +143,7 @@ func (h *handlerItem) DeleteItemById() fiber.Handler {
 		if err != nil {
 			utils.Error(err, nil)
 			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE_STRUCT,
+				Code: utils.ERR_VALIDATE,
 				Err:  err,
 			}
 

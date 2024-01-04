@@ -1,6 +1,7 @@
 package gormadapter
 
 import (
+	"errors"
 	"fmt"
 	"time"
 
@@ -74,11 +75,13 @@ func (g *gormAdapter) GetListInvoice(isDelete bool, limit int, offset int, issue
 		Where("invoices.is_delete = ?", isDelete)
 
 	if issueDate != nil {
-		db = db.Where("invoices.issue_date = ?", *issueDate)
+		limitTime := issueDate.Add(24 * time.Hour)
+		db = db.Where("invoices.created_at BETWEEN ? AND ?", *issueDate, limitTime)
 	}
 
 	if dueDate != nil {
-		db = db.Where("invoices.created_at = ?", *dueDate)
+		limitTime := dueDate.Add(24 * time.Hour)
+		db = db.Where("invoices.due_date BETWEEN ? AND ?", *dueDate, limitTime)
 	}
 
 	if subject != nil && *subject != "" {
@@ -89,7 +92,7 @@ func (g *gormAdapter) GetListInvoice(isDelete bool, limit int, offset int, issue
 		db = db.Having(`COUNT(items.id) = ?`, totalItems)
 	}
 
-	if customer != nil && *customer != ""{
+	if customer != nil && *customer != "" {
 		db = db.Where("customers.name LIKE ?", fmt.Sprintf("%%%s%%", *customer))
 	}
 
@@ -163,8 +166,42 @@ func (g *gormAdapter) GetInvoiceById(invoiceId *int) (*model.ResponseInvoiceById
 	return &data, nil
 }
 
-func (g *gormAdapter) UpdateInvoiceById(invoice *model.Invoice) error {
-	err := g.Model(&invoice).Where("is_delete = ?", false).Clauses(clause.Locking{Strength: "UPDATE"}).Updates(invoice).Error
+func (g *gormAdapter) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) error {
+	err := g.Transaction(func(tx *gorm.DB) error {
+		invoice := model.Invoice{
+			Id:         &req.InvoiceId,
+			DueDate:    &req.DueDate,
+			Subject:    &req.Subject,
+			CustomerId: &req.CustomerId,
+		}
+
+		err := tx.Model(&invoice).Where("is_delete = ?", false).Clauses(clause.Locking{Strength: "UPDATE"}).Updates(invoice).Error
+		if err != nil {
+			return err
+		}
+
+		for _, v := range req.Items {
+			var (
+				itemId    = v.ItemId
+				count     = v.Count
+				invoiceId = req.InvoiceId
+			)
+
+			item := model.Quantity{
+				ItemId:    &itemId,
+				InvoiceId: &invoiceId,
+				Count:     &count,
+			}
+
+			if err := tx.Model(&item).Where("item_id = ?", itemId).Where("invoice_id = ?", invoiceId).Update("count", count).Error; err != nil {
+				if errors.Is(err, gorm.ErrRecordNotFound) {
+					tx.Create(&item)
+				}
+			}
+		}
+
+		return nil
+	})
 	if err != nil {
 		return err
 	}

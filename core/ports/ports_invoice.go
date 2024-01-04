@@ -11,7 +11,7 @@ type RepositoryInvoice interface {
 	CreateInvoice(req *model.RequestCreateInvoice) error
 	GetListInvoice(isDelete bool, limit int, offset int, issueDate *time.Time, subject *string, totalItems *int, customer *string, dueDate *time.Time, InvoiceId *int) (*model.ResponseGetListInvoice, error)
 	GetInvoiceById(invoiceId *int) (*model.ResponseInvoiceById, error)
-	UpdateInvoiceById(invoice *model.Invoice) error
+	UpdateInvoiceById(req *model.RequestUpdateInvoiceById) error
 	DeleteInvoiceById(invoiceId *int) error
 }
 

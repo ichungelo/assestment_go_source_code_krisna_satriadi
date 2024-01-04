@@ -20,15 +20,26 @@ func NewServiceInvoice(rInvoice ports.RepositoryInvoice) *serviceInvoice {
 }
 
 func (s *serviceInvoice) CreateInvoice(req *model.RequestCreateInvoice) *utils.ErrorCode {
-	err := s.RepositoryInvoice.CreateInvoice(req)
+	status, err := utils.InvoiceStatusValidator(req.Status)
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "999",
+			Code: utils.ERR_VALIDATE,
 			Err:  err,
 		}
 		return &errData
+	}
 
+	req.Status = *status
+
+	err = s.RepositoryInvoice.CreateInvoice(req)
+	if err != nil {
+		utils.Error(err, nil)
+		errData := utils.ErrorCode{
+			Code: utils.ERR_FAILED_CREATE_INVOICE,
+			Err:  err,
+		}
+		return &errData
 	}
 
 	return nil
@@ -84,15 +95,19 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 
 	if req.IssueDate != nil {
 		v, err := time.Parse(time.RFC3339, *req.IssueDate)
+
 		if err == nil {
-			issueDate = &v
+			date := time.Date(v.Year(), v.Month(), v.Day(), 0, 0, 0, 0, time.Local)
+			issueDate = &date
 		}
 	}
 
 	if req.DueDate != nil {
 		v, err := time.Parse(time.RFC3339, *req.DueDate)
+
 		if err == nil {
-			dueDate = &v
+			date := time.Date(v.Year(), v.Month(), v.Day(), 0, 0, 0, 0, time.Local)
+			dueDate = &date
 		}
 	}
 
@@ -100,7 +115,7 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "999",
+			Code: utils.ERR_FAILED_GET_INVOICE,
 			Err:  err,
 		}
 		return nil, &errData
@@ -114,7 +129,7 @@ func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*mode
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "999",
+			Code: utils.ERR_FAILED_GET_INVOICE,
 			Err:  err,
 		}
 		return nil, &errData
@@ -125,19 +140,23 @@ func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*mode
 }
 
 func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utils.ErrorCode {
-	var (
-		Invoice = model.Invoice{
-			Id:         &req.InvoiceId,
-			Subject:    &req.Subject,
-			CustomerId: &req.CustomerId,
-		}
-	)
-
-	err := s.RepositoryInvoice.UpdateInvoiceById(&Invoice)
+	status, err := utils.InvoiceStatusValidator(req.Status)
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "999",
+			Code: utils.ERR_VALIDATE,
+			Err:  err,
+		}
+		return &errData
+	}
+
+	req.Status = *status
+
+	err = s.RepositoryInvoice.UpdateInvoiceById(req)
+	if err != nil {
+		utils.Error(err, nil)
+		errData := utils.ErrorCode{
+			Code: utils.ERR_FAILED_UPDATE_INVOICE,
 			Err:  err,
 		}
 		return &errData
@@ -152,7 +171,7 @@ func (s *serviceInvoice) DeleteInvoiceById(req *model.RequestDeleteInvoiceById) 
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "999",
+			Code: utils.ERR_FAILED_DELETE_INVOICE,
 			Err:  err,
 		}
 		return &errData
