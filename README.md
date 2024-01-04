@@ -105,35 +105,47 @@ make build
 
 ## API
 
-#### /projects
+#### /api/v1/customers
 
-- `GET` : Get all projects
-- `POST` : Create a new project
+- `GET` : Get all customers
+- `POST` : Create a new customer
 
-#### /projects/:title
+#### /api/v1/customers/:customerId
 
-- `GET` : Get a project
-- `PUT` : Update a project
-- `DELETE` : Delete a project
+- `PUT` : Update a customer
+- `DELETE` : Delete a customer
 
-#### /projects/:title/archive
+#### /api/v1/invoices
 
-- `PUT` : Archive a project
-- `DELETE` : Restore a project
+- `GET` : Get all invoices
+- `POST` : Create a new invoice
 
-#### /projects/:title/tasks
+#### /api/v1/invoices/:invoiceId
 
-- `GET` : Get all tasks of a project
-- `POST` : Create a new task in a project
+- `GET` : Get detail invoice by id
+- `PUT` : Update a invoice
+- `DELETE` : Delete a invoice
 
-#### /projects/:title/tasks/:id
+#### /api/v1/invoices/:invoiceId/items/:itemsId
 
-- `GET` : Get a task of a project
-- `PUT` : Update a task of a project
-- `DELETE` : Delete a task of a project
+- `DELETE` : Delete invoice item
 
-#### /projects/:title/tasks/:id/complete
+#### /api/v1/types
 
-- `PUT` : Complete a task of a project
-- `DELETE` : Undo a task of a project
+- `GET` : Get all types
+- `POST` : Create a new type
 
+#### /api/v1/types/:typeId
+
+- `PUT` : Update a type
+- `DELETE` : Delete a type
+
+#### /api/v1/items
+
+- `GET` : Get all items
+- `POST` : Create a new item
+
+#### /api/v1/items/:itemId
+
+- `PUT` : Update a item
+- `DELETE` : Delete a item
