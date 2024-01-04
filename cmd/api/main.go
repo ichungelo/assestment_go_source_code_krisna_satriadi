@@ -7,12 +7,9 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/config"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/services"
-	gormadapter "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/sources/gorm/gorm_adapter"
+	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/di"
 	gormconnection "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/sources/gorm/gorm_connection"
-	fiberhandler "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/transports/fiber/fiber_handler"
 	fibermiddleware "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/transports/fiber/fiber_middleware"
-	fiberrouter "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/transports/fiber/fiber_router"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
 )
 
@@ -31,16 +28,11 @@ func init() {
 
 func main() {
 	var (
-		appHost     = os.Getenv("APP_HOST")
-		appPort     = os.Getenv("APP_PORT")
-		gormAdapter = gormadapter.NewGormAdapter(gormconnection.DB)
-
-		miscService = services.NewServiceMisc(gormAdapter)
-		miscHandler = fiberhandler.NewMiscHandler(miscService)
-
-		router = fiberrouter.NewRouter(miscHandler, nil)
+		appHost = os.Getenv("APP_HOST")
+		appPort = os.Getenv("APP_PORT")
 	)
 	app := fiber.New()
+	router := di.Initializer(gormconnection.DB)
 
 	fibermiddleware.FiberMiddleware(app)
 	router.Route(app, fibermiddleware.LoggerMiddleware())

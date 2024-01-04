@@ -2,7 +2,9 @@ module github.com/ichungelo/assestment_go_source_code_krisna_satriadi
 
 go 1.20
 
-require github.com/gofiber/fiber/v2 v2.51.0
+require (
+	github.com/gofiber/fiber/v2 v2.51.0
+)
 
 require (
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
