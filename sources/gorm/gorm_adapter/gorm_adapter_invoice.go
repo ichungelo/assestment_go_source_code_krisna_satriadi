@@ -1,6 +1,7 @@
 package gormadapter
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
@@ -20,7 +21,7 @@ func (g *gormAdapter) CreateInvoice(req *model.RequestCreateInvoice) error {
 		if err != nil {
 			return err
 		}
-		
+
 		if invoice.Id == nil {
 			return err
 		}
@@ -28,9 +29,9 @@ func (g *gormAdapter) CreateInvoice(req *model.RequestCreateInvoice) error {
 		items := []model.Quantity{}
 
 		for _, v := range req.Items {
-			var(
+			var (
 				itemId = v.ItemId
-				count = v.Count
+				count  = v.Count
 			)
 
 			item := model.Quantity{
@@ -65,28 +66,31 @@ func (g *gormAdapter) GetListInvoice(isDelete bool, limit int, offset int, issue
 		total     int
 	)
 
-	db := g.Model(&model.Invoice{}).
-		Where("invoices.is_delete = ?", isDelete).
-		Order("invoices.created_at DESC")
+	db := g.Table("invoices").Select("invoices.id AS invoice_id", "invoices.created_at AS issue_date", "invoices.due_date", "invoices.subject", "customers.name AS customer_name", "customers.id AS customer_id", "count(items.id) AS total_items").
+		Joins("LEFT JOIN customers ON customers.id = invoices.customer_id").
+		Joins("LEFT JOIN quantities ON quantities.invoice_id = invoices.id").
+		Joins("LEFT JOIN items ON quantities.item_id = items.id").
+		Order("invoices.created_at DESC").
+		Where("invoices.is_delete = ?", isDelete)
 
 	if issueDate != nil {
-		db = db.Where("issue_date = ?", *issueDate)
+		db = db.Where("invoices.issue_date = ?", *issueDate)
 	}
 
 	if dueDate != nil {
-		db = db.Where("created_at = ?", *dueDate)
+		db = db.Where("invoices.created_at = ?", *dueDate)
 	}
 
-	if subject != nil {
-		db = db.Where("subjects LIKE \"%?%\"", subject)
+	if subject != nil && *subject != "" {
+		db = db.Where("invoices.subject LIKE ?", fmt.Sprintf("%%%s%%", *subject))
 	}
 
 	if totalItems != nil {
-		db = db.Preload("Quantities").Where("sum(quantities.count) = ?", totalItems)
+		db = db.Having(`COUNT(items.id) = ?`, totalItems)
 	}
 
-	if customer != nil {
-		db = db.Joins("INNER JOIN customers ON customer.id = invoices.customer_id").Where("customers.name LIKE \"%?%\"", customer)
+	if customer != nil && *customer != ""{
+		db = db.Where("customers.name LIKE ?", fmt.Sprintf("%%%s%%", *customer))
 	}
 
 	if InvoiceId != nil {
@@ -97,12 +101,12 @@ func (g *gormAdapter) GetListInvoice(isDelete bool, limit int, offset int, issue
 		start = offset
 	}
 
-	err := db.Count(&totalData).Error
+	err := db.Group("invoices.id").Count(&totalData).Error
 	if err != nil {
 		return nil, err
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&data).Error
+	err = db.Group("invoices.id").Limit(limit).Offset(offset).Find(&data).Error
 	if err != nil {
 		return nil, err
 	}
@@ -120,9 +124,43 @@ func (g *gormAdapter) GetListInvoice(isDelete bool, limit int, offset int, issue
 	return listInvoice, nil
 }
 
-func (g *gormAdapter) GetInvoiceById(invoiceId *int) (*model.Invoice, error) {
-	//TODO Implement Repository
-	return nil, nil
+func (g *gormAdapter) GetInvoiceById(invoiceId *int) (*model.ResponseInvoiceById, error) {
+	var (
+		data = model.ResponseInvoiceById{}
+	)
+
+	err := g.Transaction(func(tx *gorm.DB) error {
+		err := g.Raw(
+			`SELECT invoices.id AS invoice_id, invoices.created_at AS issue_date, invoices.due_date, invoices.subject, customers.name AS customer_name, customers.id AS customer_id, count(items.id) AS total_items 
+			FROM invoices 
+			LEFT JOIN customers ON customers.id = invoices.customer_id
+			LEFT JOIN quantities ON quantities.invoice_id = invoices.id
+			LEFT JOIN items ON quantities.item_id = items.id
+			WHERE invoices.id = ?
+			AND invoices.is_delete = false
+			GROUP BY invoices.id`, invoiceId).Scan(&data).Error
+		if err != nil {
+			return err
+		}
+
+		err = g.Raw(
+			`
+			SELECT items.id, items.name, items.unit_price, quantities.count AS quantity FROM items
+			LEFT JOIN quantities ON items.id = quantities.item_id
+			LEFT JOIN invoices ON invoices.id = quantities.invoice_id
+			WHERE invoices.id = ?;
+			`, invoiceId).Scan(&data.Items).Error
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &data, nil
 }
 
 func (g *gormAdapter) UpdateInvoiceById(invoice *model.Invoice) error {

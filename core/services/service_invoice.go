@@ -109,9 +109,19 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 	return res, nil
 }
 
-func (s *serviceInvoice) GetInvoiceById(invoiceId *int) (*model.Invoice, *utils.ErrorCode) {
-	//!TODO Add Service
-	return nil, nil
+func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*model.ResponseInvoiceById, *utils.ErrorCode) {
+	res, err := s.RepositoryInvoice.GetInvoiceById(&req.InvoiceId)
+	if err != nil {
+		utils.Error(err, nil)
+		errData := utils.ErrorCode{
+			Code: "999",
+			Err:  err,
+		}
+		return nil, &errData
+
+	}
+
+	return res, nil
 }
 
 func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utils.ErrorCode {

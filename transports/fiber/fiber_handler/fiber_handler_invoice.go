@@ -68,7 +68,7 @@ func (h *handlerInvoice) GetListInvoice() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		req := model.RequestGetListInvoice{}
 
-		err := c.QueryParser(req)
+		err := c.QueryParser(&req)
 		if err != nil {
 					utils.Error(err, nil)
 			errCode := utils.ErrorCode{
@@ -104,9 +104,22 @@ func (h *handlerInvoice) GetListInvoice() fiber.Handler {
 
 func (h *handlerInvoice) GetInvoiceById() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		req := model.RequestGetListInvoice{}
+		req := model.RequestGetInvoiceById{}
 
-		err := utils.Validate(req)
+		invoiceId, err := c.ParamsInt("invoiceId", 0)
+		if err != nil {
+					utils.Error(err, nil)
+			errCode := utils.ErrorCode{
+				Code: utils.ERR_PARSE_DATA,
+				Err:  err,
+			}
+
+			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+		}
+
+		req.InvoiceId = invoiceId
+
+		err = utils.Validate(req)
 		if err != nil {
 					utils.Error(err, nil)
 			errCode := utils.ErrorCode{
@@ -117,7 +130,7 @@ func (h *handlerInvoice) GetInvoiceById() fiber.Handler {
 			return fiberpresenter.Presenter(c, nil, nil, &errCode)
 		}
 
-		data, errCode := h.ServiceInvoice.GetListInvoice(&req)
+		data, errCode := h.ServiceInvoice.GetInvoiceById(&req)
 		if errCode != nil {
 			return fiberpresenter.Presenter(c, nil, nil, errCode)
 		}

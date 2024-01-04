@@ -74,12 +74,20 @@ type ResponseGetListInvoice struct {
 }
 
 type ResponseInvoiceById struct {
-	Id           *int       `json:"id"`
-	IssueDate    *time.Time `json:"issueDate"`
-	Subject      *string    `json:"subject"`
-	TotalItems   *int       `json:"totalItems"`
-	CustomerName *string    `json:"customerName"`
-	DueDate      *time.Time `json:"dueDate"`
-	Status       *string    `json:"status"`
-	Items        []Item     `gorm:"many2many:quantities;foreignKey:Id;joinForeignKey:InvoiceId;References:Id;joinReferences:ItemId" json:"items"`
+	InvoiceId    *int                      `json:"invoiceId,omitempty"`
+	IssueDate    *time.Time                `json:"issueDate,omitempty"`
+	DueDate      *time.Time                `json:"dueDate,omitempty"`
+	Subject      *string                   `json:"subject,omitempty"`
+	CustomerName *string                   `json:"customerName,omitempty"`
+	CustomerId   *int                      `json:"customerId,omitempty"`
+	TotalItems   *int                      `json:"totalItems,omitempty"`
+	Status       *string                   `json:"status,omitempty"`
+	Items        []ResponseListItemInvoice `json:"items,omitempty" gorm:"-"`
+}
+
+type ResponseListItemInvoice struct {
+	Id        *int    `json:"id"`
+	Name      *string `json:"name"`
+	UnitPrice *int    `json:"unitPrice"`
+	Quantity  *int    `json:"quantity"`
 }
