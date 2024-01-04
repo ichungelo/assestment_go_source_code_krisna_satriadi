@@ -4,7 +4,7 @@ import "time"
 
 type Item struct {
 	Id         *int       `json:"id" gorm:"primaryKey;autoIncrement"`
-	IsDelete   *bool      `json:"isDelete"`
+	IsDelete  *bool      `json:"isDelete" gorm:"default:false"`	
 	CreatedAt  *time.Time `json:"createdAt" gorm:"autoCreateTime" sql:"type:timestamptz"`
 	UpdatedAt  *time.Time `json:"updatedAt" gorm:"autoUpdateTime" sql:"type:timestamptz"`
 	DeletedAt  *time.Time `json:"deletedAt"`

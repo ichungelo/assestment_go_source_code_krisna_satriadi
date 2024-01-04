@@ -35,6 +35,6 @@ func main() {
 	router := di.Initializer(gormconnection.DB)
 
 	fibermiddleware.FiberMiddleware(app)
-	router.Route(app, fibermiddleware.LoggerMiddleware())
+	router.Route(app)
 	log.Fatal(app.Listen(fmt.Sprintf("%s:%s", appHost, appPort)))
 }

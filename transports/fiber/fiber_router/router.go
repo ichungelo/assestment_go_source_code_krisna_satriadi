@@ -24,20 +24,22 @@ func NewRouter(rfCustomer fiberhandler.RouterFiberCustomer, rfInvoice fiberhandl
 	}
 }
 
-func (r *Router) Route(app fiber.Router, logger func(*fiber.Ctx) error) {
-	route := app.Group("api/v1")
+func (r *Router) Route(app fiber.Router) {
+	route := app.Group("/api/v1")
 
 	//! customer
-	route.Post("/customers", logger, r.CreateCustomer())
-	route.Get("/customers", logger, r.GetListCustomer())
-	route.Put("/customers/:customerId", logger, r.UpdateCustomerById())
-	route.Delete("/customers/:customerId", logger, r.DeleteCustomerById())
+	customer := route.Group("/customers")
+	customer.Post("/", r.CreateCustomer())
+	customer.Get("/", r.GetListCustomer())
+	customer.Put("/:customerId", r.UpdateCustomerById())
+	customer.Delete("/:customerId", r.DeleteCustomerById())
 
 	//! invoice
-	route.Post("/invoices", logger, r.CreateInvoice())
-	route.Get("/invoices", logger, r.GetListInvoice())
-	route.Put("/invoices/:invoicesId", logger, r.UpdateInvoiceById())
-	route.Delete("/invoices/:invoicesId", logger, r.DeleteInvoiceById())
+	invoice := route.Group("/invoices")
+	invoice.Post("/", r.CreateInvoice())
+	invoice.Get("/", r.GetListInvoice())
+	invoice.Put("/:invoicesId", r.UpdateInvoiceById())
+	invoice.Delete("/:invoicesId", r.DeleteInvoiceById())
 
 	//! misc
 	app.Get("/monitor", monitor.New(monitor.Config{Title: "Invoice App Monitoring"}))

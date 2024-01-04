@@ -4,7 +4,7 @@ import "time"
 
 type Invoice struct {
 	Id         *int       `json:"id" gorm:"primaryKey;autoIncrement"`
-	IsDelete   *bool      `json:"isDelete"`
+	IsDelete   *bool      `json:"isDelete" gorm:"default:false"`
 	CreatedAt  *time.Time `json:"createdAt" gorm:"autoCreateTime" sql:"type:timestamptz"`
 	UpdatedAt  *time.Time `json:"updatedAt" gorm:"autoUpdateTime" sql:"type:timestamptz"`
 	DueDate    *time.Time `json:"dueDate"`
@@ -53,7 +53,7 @@ type RequestDeleteInvoiceById struct {
 
 // ! Response
 type ResponseGetListInvoice struct {
-	InvoiceId    *int     `json:"invoiceId"`
+	InvoiceId    *int       `json:"invoiceId"`
 	IssueDate    *time.Time `json:"issueDate"`
 	Subject      *string    `json:"subject"`
 	TotalItems   *int       `json:"totalItems"`

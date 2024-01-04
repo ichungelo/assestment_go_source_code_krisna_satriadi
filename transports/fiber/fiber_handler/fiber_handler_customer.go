@@ -72,7 +72,19 @@ func (h *handlerCustomer) GetListCustomer() fiber.Handler {
 }
 
 func (h *handlerCustomer) UpdateCustomerById() fiber.Handler {
-	return func(c *fiber.Ctx) error {		
+	return func(c *fiber.Ctx) error {
+		req := model.RequestUpdateCustomerById{}
+
+		err := json.Unmarshal(c.Body(), &req)
+		if err != nil {
+			errCode := utils.ErrorCode{
+				Code: utils.ERR_FAILED_UNMARSHAL_JSON,
+				Err:  err,
+			}
+
+			return model.Presenter(c, nil, nil, &errCode)
+		}
+
 		customerId, err := c.ParamsInt("customerId", 0)
 		if err != nil {
 			errCode := utils.ErrorCode{
@@ -83,10 +95,8 @@ func (h *handlerCustomer) UpdateCustomerById() fiber.Handler {
 			return model.Presenter(c, nil, nil, &errCode)
 		}
 
-		req := model.RequestUpdateCustomerById{
-			CustomerId: customerId,
-		}
-		
+		req.CustomerId = customerId
+
 		err = utils.Validate(req)
 		if err != nil {
 			errCode := utils.ErrorCode{
@@ -107,7 +117,7 @@ func (h *handlerCustomer) UpdateCustomerById() fiber.Handler {
 }
 
 func (h *handlerCustomer) DeleteCustomerById() fiber.Handler {
-	return func(c *fiber.Ctx) error {		
+	return func(c *fiber.Ctx) error {
 		customerId, err := c.ParamsInt("customerId", 0)
 		if err != nil {
 			errCode := utils.ErrorCode{
@@ -121,7 +131,7 @@ func (h *handlerCustomer) DeleteCustomerById() fiber.Handler {
 		req := model.RequestDeleteCustomerById{
 			CustomerId: customerId,
 		}
-		
+
 		err = utils.Validate(req)
 		if err != nil {
 			errCode := utils.ErrorCode{
