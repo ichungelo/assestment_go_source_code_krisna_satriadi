@@ -125,6 +125,11 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 }
 
 func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*model.ResponseInvoiceById, *utils.ErrorCode) {
+	var (
+		subTotal   float64
+		tax        float64
+		grandTotal float64
+	)
 	res, err := s.RepositoryInvoice.GetInvoiceById(&req.InvoiceId)
 	if err != nil {
 		utils.Error(err, nil)
@@ -136,6 +141,21 @@ func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*mode
 
 	}
 
+	for _, v := range res.Items {
+		var (
+			quantity  = *v.Quantity
+			unitPrice = *v.UnitPrice
+		)
+		subTotal += float64(quantity * unitPrice)
+	}
+
+	tax = float64(subTotal) * 0.1
+	grandTotal = subTotal + tax
+
+	res.SubTotal = &subTotal
+	res.Tax = &tax
+	res.GrandTotal = &grandTotal
+	
 	return res, nil
 }
 

@@ -86,6 +86,9 @@ type ResponseInvoiceById struct {
 	CustomerId   *int                      `json:"customerId,omitempty"`
 	TotalItems   *int                      `json:"totalItems,omitempty"`
 	Status       *string                   `json:"status,omitempty"`
+	SubTotal     *float64                  `json:"subTotal,omitempty"`
+	Tax          *float64                  `json:"tax,omitempty"`
+	GrandTotal   *float64                  `json:"grandTotal,omitempty"`
 	Items        []ResponseListItemInvoice `json:"items,omitempty" gorm:"-"`
 }
 
