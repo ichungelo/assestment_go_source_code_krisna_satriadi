@@ -31,8 +31,8 @@ type RequestUpdateInvoiceById struct {
 }
 
 type RequestItem struct {
-	ItemId   int `json:"itemId" validate:"required"`
-	Quantity int `json:"quantity" validate:"required"`
+	ItemId int `json:"itemId" validate:"required"`
+	Count  int `json:"count" validate:"required"`
 }
 
 type RequestGetInvoiceById struct {
@@ -40,15 +40,15 @@ type RequestGetInvoiceById struct {
 }
 
 type RequestGetListInvoice struct {
-	IsDelete   *string `json:"isDelete"`
-	Limit      *string `json:"limit"`
-	Offset     *string `json:"offset"`
-	IssueDate  *string `json:"issueDate"`
-	Subject    *string `json:"subject"`
-	TotalItems *string `json:"totalItems"`
-	Customer   *string `json:"customer"`
-	DueDate    *string `json:"dueDate"`
-	InvoiceId  *string `json:"invoiceId"`
+	IsDelete   *string `json:"isDelete" query:"isDelete"`
+	Limit      *string `json:"limit" query:"limit"`
+	Offset     *string `json:"offset" query:"offset"`
+	IssueDate  *string `json:"issueDate" query:"issueDate"`
+	Subject    *string `json:"subject" query:"subject"`
+	TotalItems *string `json:"totalItems" query:"totalItems"`
+	Customer   *string `json:"customer" query:"customer"`
+	DueDate    *string `json:"dueDate" query:"dueDate"`
+	InvoiceId  *string `json:"invoiceId" query:"invoiceId"`
 }
 
 type RequestDeleteInvoiceById struct {

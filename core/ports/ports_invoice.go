@@ -8,7 +8,7 @@ import (
 )
 
 type RepositoryInvoice interface {
-	CreateInvoice(invoice *model.Invoice) error
+	CreateInvoice(req *model.RequestCreateInvoice) error
 	GetListInvoice(isDelete bool, limit int, offset int, issueDate *time.Time, subject *string, totalItems *int, customer *string, dueDate *time.Time, InvoiceId *int) (*model.ResponseGetListInvoice, error)
 	GetInvoiceById(invoiceId *int) (*model.Invoice, error)
 	UpdateInvoiceById(invoice *model.Invoice) error

@@ -28,7 +28,7 @@ func (s *serviceCustomer) CreateCustomer(req *model.RequestCreateCustomer) *util
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData
@@ -43,7 +43,7 @@ func (s *serviceCustomer) GetListCustomer() ([]model.ResponseGetListCustomer, *u
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return nil, &errData
@@ -65,7 +65,7 @@ func (s *serviceCustomer) UpdateCustomerById(req *model.RequestUpdateCustomerByI
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData
@@ -80,7 +80,7 @@ func (s *serviceCustomer) DeleteCustomerById(req *model.RequestDeleteCustomerByI
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData

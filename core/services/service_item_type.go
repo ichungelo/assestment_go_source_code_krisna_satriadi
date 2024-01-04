@@ -19,7 +19,7 @@ func NewServiceItemType(rItemType ports.RepositoryItemType) *serviceItemType {
 func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *utils.ErrorCode {
 	var (
 		ItemType = model.ItemType{
-			Name:       &req.Name,
+			Name: &req.Name,
 		}
 	)
 
@@ -27,7 +27,7 @@ func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *util
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData
@@ -42,7 +42,7 @@ func (s *serviceItemType) GetListItemType() ([]model.ResponseGetListItemType, *u
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return nil, &errData
@@ -54,8 +54,8 @@ func (s *serviceItemType) GetListItemType() ([]model.ResponseGetListItemType, *u
 func (s *serviceItemType) UpdateItemTypeById(req *model.RequestUpdateItemTypeById) *utils.ErrorCode {
 	var (
 		itemType = model.ItemType{
-			Id:         &req.ItemTypeId,
-			Name:       &req.Name,
+			Id:   &req.ItemTypeId,
+			Name: &req.Name,
 		}
 	)
 
@@ -63,7 +63,7 @@ func (s *serviceItemType) UpdateItemTypeById(req *model.RequestUpdateItemTypeByI
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData
@@ -78,7 +78,7 @@ func (s *serviceItemType) DeleteItemTypeById(req *model.RequestDeleteItemTypeByI
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData
@@ -87,4 +87,3 @@ func (s *serviceItemType) DeleteItemTypeById(req *model.RequestDeleteItemTypeByI
 
 	return nil
 }
-

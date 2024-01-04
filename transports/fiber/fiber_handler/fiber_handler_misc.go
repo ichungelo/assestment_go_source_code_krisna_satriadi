@@ -4,8 +4,8 @@ import (
 	"errors"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/ports"
+	fiberpresenter "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/transports/fiber/fiber_presenter"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
 )
 
@@ -31,6 +31,6 @@ func (h *handlerMisc) NotFound() fiber.Handler {
 			Err:  errors.New("page not found"),
 		}
 
-		return model.Presenter(c, nil, nil, &errCode)
+		return fiberpresenter.Presenter(c, nil, nil, &errCode)
 	}
 }

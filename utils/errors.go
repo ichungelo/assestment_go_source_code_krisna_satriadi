@@ -22,6 +22,7 @@ const (
 	ERR_FAILED_UNMARSHAL_JSON Code = "003"
 	ERR_NOT_FOUND             Code = "099"
 	ERR_INTERNAL_SERVER_ERROR Code = "100"
+	ERR_GENERAL               Code = "999"
 )
 
 func GetErrorData(errCode ErrorCode) ErrorApi {
@@ -59,6 +60,11 @@ var ErrorDataMap = map[Code]ErrorApi{
 	ERR_INTERNAL_SERVER_ERROR: {
 		Code:           "100",
 		Message:        "internal server error",
+		HttpStatusCode: http.StatusInternalServerError,
+	},
+	ERR_GENERAL: {
+		Code:           "999",
+		Message:        "error happen",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
 }

@@ -20,18 +20,11 @@ func NewServiceInvoice(rInvoice ports.RepositoryInvoice) *serviceInvoice {
 }
 
 func (s *serviceInvoice) CreateInvoice(req *model.RequestCreateInvoice) *utils.ErrorCode {
-	var (
-		Invoice = model.Invoice{
-			Id:      &req.CustomerId,
-			Subject: &req.Subject,
-		}
-	)
-
-	err := s.RepositoryInvoice.CreateInvoice(&Invoice)
+	err := s.RepositoryInvoice.CreateInvoice(req)
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData
@@ -90,14 +83,14 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 	}
 
 	if req.IssueDate != nil {
-		v, err := time.Parse("02/01/2006", *req.IssueDate)
+		v, err := time.Parse(time.RFC3339, *req.IssueDate)
 		if err == nil {
 			issueDate = &v
 		}
 	}
 
 	if req.DueDate != nil {
-		v, err := time.Parse("02/01/2006", *req.DueDate)
+		v, err := time.Parse(time.RFC3339, *req.DueDate)
 		if err == nil {
 			dueDate = &v
 		}
@@ -107,7 +100,7 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return nil, &errData
@@ -116,7 +109,7 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 	return res, nil
 }
 
-func (s *serviceInvoice)GetInvoiceById(invoiceId *int) (*model.Invoice, *utils.ErrorCode) {
+func (s *serviceInvoice) GetInvoiceById(invoiceId *int) (*model.Invoice, *utils.ErrorCode) {
 	//!TODO Add Service
 	return nil, nil
 }
@@ -134,7 +127,7 @@ func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) 
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData
@@ -149,7 +142,7 @@ func (s *serviceInvoice) DeleteInvoiceById(req *model.RequestDeleteInvoiceById) 
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData

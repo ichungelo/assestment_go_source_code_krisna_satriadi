@@ -37,5 +37,5 @@ type RequestDeleteItemById struct {
 type ResponseGetListItem struct {
 	Id     *int    `json:"id"`
 	Name   *string `json:"name"`
-	Type   *string `json:"type"`
+	Type   *string `json:"type" gorm:"column:ItemType__name"`
 }

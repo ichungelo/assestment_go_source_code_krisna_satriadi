@@ -29,7 +29,7 @@ func (s *serviceItem) CreateItem(req *model.RequestCreateItem) *utils.ErrorCode 
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData
@@ -44,7 +44,7 @@ func (s *serviceItem) GetListItem() ([]model.ResponseGetListItem, *utils.ErrorCo
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return nil, &errData
@@ -67,7 +67,7 @@ func (s *serviceItem) UpdateItemById(req *model.RequestUpdateItemById) *utils.Er
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData
@@ -82,7 +82,7 @@ func (s *serviceItem) DeleteItemById(req *model.RequestDeleteItemById) *utils.Er
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
-			Code: "006",
+			Code: "999",
 			Err:  err,
 		}
 		return &errData

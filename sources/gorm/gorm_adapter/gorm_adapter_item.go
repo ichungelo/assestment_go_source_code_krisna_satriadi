@@ -22,7 +22,7 @@ func (g *gormAdapter) GetListItem() ([]model.ResponseGetListItem, error) {
 		data []model.ResponseGetListItem
 	)
 
-	err := g.Model(&model.Item{}).Where("is_delete = ?", false).Joins("ItemType").Order("created_at DESC").Find(&data).Error
+	err := g.Model(&model.Item{}).Where("items.is_delete = ?", false).Joins("ItemType").Order("created_at DESC").Find(&data).Error
 	if err != nil {
 		return nil, err
 	}
