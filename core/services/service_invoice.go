@@ -41,7 +41,7 @@ func (s *serviceInvoice) CreateInvoice(req *model.RequestCreateInvoice) *utils.E
 	return nil
 }
 
-func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (total int, count int, start int, listInvoice []model.Invoice, apiErr *utils.ErrorCode) {
+func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listInvoice *model.ResponseGetListInvoice, apiErr *utils.ErrorCode) {
 
 	var (
 		isDelete   bool
@@ -103,17 +103,22 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (total
 		}
 	}
 
-	total, count, start, res, err := s.RepositoryInvoice.GetListInvoice(isDelete, limit, offset, issueDate, req.Subject, totalItems, req.Customer, dueDate, invoiceId)
+	res, err := s.RepositoryInvoice.GetListInvoice(isDelete, limit, offset, issueDate, req.Subject, totalItems, req.Customer, dueDate, invoiceId)
 	if err != nil {
 		utils.Error(err, nil)
 		errData := utils.ErrorCode{
 			Code: "006",
 			Err:  err,
 		}
-		return total, count, start, res, &errData
+		return nil, &errData
 	}
 
-	return total, count, start, res, nil
+	return res, nil
+}
+
+func (s *serviceInvoice)GetInvoiceById(invoiceId *int) (*model.Invoice, *utils.ErrorCode) {
+	//!TODO Add Service
+	return nil, nil
 }
 
 func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utils.ErrorCode {

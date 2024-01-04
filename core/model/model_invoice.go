@@ -11,7 +11,7 @@ type Invoice struct {
 	DeletedAt  *time.Time `json:"deletedAt"`
 	Subject    *string    `json:"subject"`
 	CustomerId *int       `json:"customerId"`
-	Customer   *Customer  `json:"users" gorm:"constraint:OnUpdate:CASCADE,OnDelete:RESTRICT"`
+	Customer   *Customer  `json:"customer" gorm:"constraint:OnUpdate:CASCADE,OnDelete:RESTRICT"`
 	Items      []Item     `gorm:"many2many:quantities;foreignKey:Id;joinForeignKey:InvoiceId;References:Id;joinReferences:ItemId" json:"items"`
 }
 
@@ -35,6 +35,10 @@ type RequestItem struct {
 	Quantity int `json:"quantity" validate:"required"`
 }
 
+type RequestGetInvoiceById struct {
+	InvoiceId int `json:"invoiceId" validate:"required"`
+}
+
 type RequestGetListInvoice struct {
 	IsDelete   *string `json:"isDelete"`
 	Limit      *string `json:"limit"`
@@ -52,7 +56,7 @@ type RequestDeleteInvoiceById struct {
 }
 
 // ! Response
-type ResponseGetListInvoice struct {
+type ResponseGetListInvoiceResult struct {
 	InvoiceId    *int       `json:"invoiceId"`
 	IssueDate    *time.Time `json:"issueDate"`
 	Subject      *string    `json:"subject"`
@@ -60,4 +64,22 @@ type ResponseGetListInvoice struct {
 	CustomerName *string    `json:"customerName"`
 	DueDate      *time.Time `json:"dueDate"`
 	Status       *string    `json:"status"`
+}
+
+type ResponseGetListInvoice struct {
+	Total  int                            `json:"total"`
+	Count  int                            `json:"count"`
+	Start  int                            `json:"start"`
+	Result []ResponseGetListInvoiceResult `json:"result"`
+}
+
+type ResponseInvoiceById struct {
+	Id           *int       `json:"id"`
+	IssueDate    *time.Time `json:"issueDate"`
+	Subject      *string    `json:"subject"`
+	TotalItems   *int       `json:"totalItems"`
+	CustomerName *string    `json:"customerName"`
+	DueDate      *time.Time `json:"dueDate"`
+	Status       *string    `json:"status"`
+	Items        []Item     `gorm:"many2many:quantities;foreignKey:Id;joinForeignKey:InvoiceId;References:Id;joinReferences:ItemId" json:"items"`
 }

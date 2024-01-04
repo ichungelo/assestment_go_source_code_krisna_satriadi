@@ -17,12 +17,12 @@ func (g *gormAdapter) CreateItem(item *model.Item) error {
 	return nil
 }
 
-func (g *gormAdapter) GetListItem() ([]model.Item, error) {
+func (g *gormAdapter) GetListItem() ([]model.ResponseGetListItem, error) {
 	var (
-		data []model.Item
+		data []model.ResponseGetListItem
 	)
 
-	err := g.Model(&model.Item{}).Where("is_delete = ?", false).Order("created_at DESC").Find(&data).Error
+	err := g.Model(&model.Item{}).Where("is_delete = ?", false).Joins("ItemType").Order("created_at DESC").Find(&data).Error
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +36,8 @@ func (g *gormAdapter) UpdateItemById(item *model.Item) error {
 		return err
 	}
 
-	return nil}
+	return nil
+}
 
 func (g *gormAdapter) DeleteItemById(itemId *int) error {
 	var (
@@ -51,4 +52,3 @@ func (g *gormAdapter) DeleteItemById(itemId *int) error {
 
 	return nil
 }
-

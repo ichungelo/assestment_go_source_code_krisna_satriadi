@@ -20,11 +20,18 @@ type RequestCreateCustomer struct {
 }
 
 type RequestUpdateCustomerById struct {
-	CustomerId int `json:"customerId" validate:"required"`
+	CustomerId int    `json:"customerId" validate:"required"`
 	Name       string `json:"name" validate:"required"`
 	Address    string `json:"address" validate:"required"`
 }
 
 type RequestDeleteCustomerById struct {
 	CustomerId int `json:"customerId" validate:"required"`
+}
+
+// ! Response
+type ResponseGetListCustomer struct {
+	Id      *int    `json:"id"`
+	Name    *string `json:"name"`
+	Address *string `json:"address"`
 }

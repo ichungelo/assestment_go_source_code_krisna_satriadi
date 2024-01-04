@@ -38,8 +38,16 @@ func (r *Router) Route(app fiber.Router) {
 	invoice := route.Group("/invoices")
 	invoice.Post("/", r.CreateInvoice())
 	invoice.Get("/", r.GetListInvoice())
+	invoice.Get("/", r.GetInvoiceById())
 	invoice.Put("/:invoicesId", r.UpdateInvoiceById())
 	invoice.Delete("/:invoicesId", r.DeleteInvoiceById())
+
+	//! ItemType
+	itemType := route.Group("/types")
+	itemType.Post("/", r.CreateItemType())
+	itemType.Get("/", r.GetListItemType())
+	itemType.Put("/:itemTypesId", r.UpdateItemTypeById())
+	itemType.Delete("/:itemTypesId", r.DeleteItemTypeById())
 
 	//! misc
 	app.Get("/monitor", monitor.New(monitor.Config{Title: "Invoice App Monitoring"}))

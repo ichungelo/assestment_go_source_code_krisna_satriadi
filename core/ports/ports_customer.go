@@ -7,14 +7,14 @@ import (
 
 type RepositoryCustomer interface {
 	CreateCustomer(customer *model.Customer) error
-	GetListCustomer() ([]model.Customer, error)
+	GetListCustomer() ([]model.ResponseGetListCustomer, error)
 	UpdateCustomerById(customer *model.Customer) error
 	DeleteCustomerById(customerId *int) error
 }
 
 type ServiceCustomer interface {
 	CreateCustomer(req *model.RequestCreateCustomer) *utils.ErrorCode
-	GetListCustomer() ([]model.Customer, *utils.ErrorCode)
+	GetListCustomer() ([]model.ResponseGetListCustomer, *utils.ErrorCode)
 	UpdateCustomerById(req *model.RequestUpdateCustomerById) *utils.ErrorCode
 	DeleteCustomerById(req *model.RequestDeleteCustomerById) *utils.ErrorCode
 }

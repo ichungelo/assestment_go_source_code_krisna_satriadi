@@ -17,9 +17,9 @@ func (g *gormAdapter) CreateCustomer(customer *model.Customer) error {
 	return nil
 }
 
-func (g *gormAdapter) GetListCustomer() ([]model.Customer, error) {
+func (g *gormAdapter) GetListCustomer() ([]model.ResponseGetListCustomer, error) {
 	var (
-		data []model.Customer
+		data []model.ResponseGetListCustomer
 	)
 
 	err := g.Model(&model.Customer{}).Where("is_delete = ?", false).Order("created_at DESC").Find(&data).Error

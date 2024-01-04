@@ -39,7 +39,7 @@ func (s *serviceItem) CreateItem(req *model.RequestCreateItem) *utils.ErrorCode 
 	return nil
 }
 
-func (s *serviceItem) GetListItem() ([]model.Item, *utils.ErrorCode) {
+func (s *serviceItem) GetListItem() ([]model.ResponseGetListItem, *utils.ErrorCode) {
 	res, err := s.RepositoryItem.GetListItem()
 	if err != nil {
 		utils.Error(err, nil)

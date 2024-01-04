@@ -37,7 +37,7 @@ func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *util
 	return nil
 }
 
-func (s *serviceItemType) GetListItemType() ([]model.ItemType, *utils.ErrorCode) {
+func (s *serviceItemType) GetListItemType() ([]model.ResponseGetListItemType, *utils.ErrorCode) {
 	res, err := s.RepositoryItemType.GetListItemType()
 	if err != nil {
 		utils.Error(err, nil)

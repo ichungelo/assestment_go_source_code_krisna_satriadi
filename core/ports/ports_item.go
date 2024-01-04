@@ -7,14 +7,14 @@ import (
 
 type RepositoryItem interface {
 	CreateItem(item *model.Item) error
-	GetListItem() ([]model.Item, error)
+	GetListItem() ([]model.ResponseGetListItem, error)
 	UpdateItemById(item *model.Item) error
 	DeleteItemById(itemId *int) error
 }
 
 type ServiceItem interface {
 	CreateItem(req *model.RequestCreateItem) *utils.ErrorCode
-	GetListItem() ([]model.Item, *utils.ErrorCode)
+	GetListItem() ([]model.ResponseGetListItem, *utils.ErrorCode)
 	UpdateItemById(req *model.RequestUpdateItemById) *utils.ErrorCode
 	DeleteItemById(req *model.RequestDeleteItemById) *utils.ErrorCode
 }

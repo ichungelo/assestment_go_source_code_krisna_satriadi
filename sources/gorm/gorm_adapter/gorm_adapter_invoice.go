@@ -17,9 +17,13 @@ func (g *gormAdapter) CreateInvoice(invoice *model.Invoice) error {
 	return nil
 }
 
-func (g *gormAdapter) GetListInvoice(isDelete bool, limit int, offset int, issueDate *time.Time, subject *string, totalItems *int, customer *string, dueDate *time.Time, InvoiceId *int) (total int, count int, start int, listInvoice []model.Invoice, err error) {
+func (g *gormAdapter) GetListInvoice(isDelete bool, limit int, offset int, issueDate *time.Time, subject *string, totalItems *int, customer *string, dueDate *time.Time, InvoiceId *int) (*model.ResponseGetListInvoice, error) {
 	var (
+		data []model.ResponseGetListInvoiceResult
 		totalData int64
+		start int
+		count int
+		total int
 	)
 
 	db := g.Model(&model.Invoice{}).
@@ -54,20 +58,34 @@ func (g *gormAdapter) GetListInvoice(isDelete bool, limit int, offset int, issue
 		start = offset
 	}
 
-	err = db.Count(&totalData).Error
+	err := db.Count(&totalData).Error
 	if err != nil {
-		return 0, 0, 0, nil, err
+		return nil, err
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&listInvoice).Error
+	err = db.Limit(limit).Offset(offset).Find(&data).Error
 	if err != nil {
-		return 0, 0, 0, nil, err
+		return nil, err
 	}
 
 	total = int(totalData)
-	count = len(listInvoice)
-	return
+	count = len(data)
+
+	listInvoice := &model.ResponseGetListInvoice{
+		Total: total,
+		Count: count,
+		Start: start,
+		Result: data,
+	}
+
+	return listInvoice, nil
 }
+
+func (g *gormAdapter)GetInvoiceById(invoiceId *int) (*model.Invoice, error) {
+	//TODO Implement Repository
+	return nil, nil
+}
+
 
 func (g *gormAdapter) UpdateInvoiceById(invoice *model.Invoice) error {
 	err := g.Model(&invoice).Where("is_delete = ?", false).Clauses(clause.Locking{Strength: "UPDATE"}).Updates(invoice).Error

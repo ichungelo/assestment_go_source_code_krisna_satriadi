@@ -38,7 +38,7 @@ func (s *serviceCustomer) CreateCustomer(req *model.RequestCreateCustomer) *util
 	return nil
 }
 
-func (s *serviceCustomer) GetListCustomer() ([]model.Customer, *utils.ErrorCode) {
+func (s *serviceCustomer) GetListCustomer() ([]model.ResponseGetListCustomer, *utils.ErrorCode) {
 	res, err := s.RepositoryCustomer.GetListCustomer()
 	if err != nil {
 		utils.Error(err, nil)

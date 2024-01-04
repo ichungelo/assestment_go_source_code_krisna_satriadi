@@ -17,9 +17,9 @@ func (g *gormAdapter) CreateItemType(itemType *model.ItemType) error {
 	return nil
 }
 
-func (g *gormAdapter) GetListItemType() ([]model.ItemType, error) {
+func (g *gormAdapter) GetListItemType() ([]model.ResponseGetListItemType, error) {
 	var (
-		data []model.ItemType
+		data []model.ResponseGetListItemType
 	)
 
 	err := g.Model(&model.ItemType{}).Where("is_delete = ?", false).Order("created_at DESC").Find(&data).Error
