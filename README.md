@@ -1,56 +1,106 @@
 # Assestment Go Source Code PT Essensi Solusi Buana
 
-This repository contains a collection of Go programs and libraries that
-demonstrate the language, standard libraries, and tools.
+## Prerequisites
 
-It is a just simple tutorial or example for making simple RESTful API with Go using **gorilla/mux** (A nice mux library) and **gorm** (An ORM for Go)
+- [Go Programming Language](https://go.dev/dl/) v1.20.x
+- [MySQL](https://www.mysql.com/downloads/) v5.7.x
+- [AIR (Go Live Reloader)](https://github.com/cosmtrek/air)
+- Your favorite code editor
 
 ## Installation & Run
 
+Before running API server, you should set your env. Your DB will automatically generated and the name will be combination of your app name and your stage. (ex: myapp_dev)
+
 ```bash
-# Download this project
-go get github.com/mingrammer/go-todo-rest-api-example
-```
-
-Before running API server, you should set the database config with yours or set the your database config with my values on [config.go](https://github.com/mingrammer/go-todo-rest-api-example/blob/master/config/config.go)
-
-```go
-func GetConfig() *Config {
-	return &Config{
-		DB: &DBConfig{
-			Dialect:  "mysql",
-			Username: "guest",
-			Password: "Guest0000!",
-			Name:     "todoapp",
-			Charset:  "utf8",
-		},
-	}
-}
+# Run
+cd assestment_go_source_code_krisna_satriadi
+make run
 ```
 
 ```bash
-# Build and Run
-cd go-todo-rest-api-example
-go build
-./go-todo-rest-api-example
+# Run (with live reload)
+cd assestment_go_source_code_krisna_satriadi
+make live
+```
 
-# API Endpoint : http://127.0.0.1:3000
+```bash
+# Build
+cd assestment_go_source_code_krisna_satriadi
+make build
 ```
 
 ## Structure
 
 ```
-├── app
-│   ├── app.go
-│   ├── handler          // Our API core handlers
-│   │   ├── common.go    // Common response functions
-│   │   ├── projects.go  // APIs for Project model
-│   │   └── tasks.go     // APIs for Task model
-│   └── model
-│       └── model.go     // Models for our application
-├── config
-│   └── config.go        // Configuration
-└── main.go
+.
+├── cmd
+│   └── api
+│       └── main.go								// main package
+├── config										// config control
+│   └── config.go
+├── core
+│   ├── model									// data model
+│   │   ├── model_customer.go
+│   │   ├── model_invoice.go
+│   │   ├── model_item.go
+│   │   ├── model_item_type.go
+│   │   ├── model_misc.go
+│   │   └── model_quantity.go
+│   ├── ports									// ports/interface
+│   │   ├── ports_customer.go
+│   │   ├── ports_invoice.go
+│   │   ├── ports_item.go
+│   │   ├── ports_item_type.go
+│   │   ├── ports_misc.go
+│   │   └── ports_quantity.go
+│   └── services								// service layer
+│       ├── service_customer.go
+│       ├── service_invoice.go
+│       ├── service_item.go
+│       ├── service_item_type.go
+│       ├── service_misc.go
+│       └── service_quantity.go
+├── di											// dependency injector
+│   └── di.go
+├── documentation								//	postman documentation
+│   ├── assestment.postman_collection.json
+│   └── assestment.postman_environment.json
+├── go.mod
+├── go.sum
+├── Makefile
+├── README.md									// YOU ARE HERE
+├── sources										// data sources directory
+│   └── gorm
+│       ├── gorm_adapter						// gorm adapter/repository
+│       │   ├── gorm_adapter_base.go
+│       │   ├── gorm_adapter_customer.go
+│       │   ├── gorm_adapter_invoice.go
+│       │   ├── gorm_adapter_item.go
+│       │   ├── gorm_adapter_item_type.go
+│       │   └── gorm_adapter_quantity.go
+│       └── gorm_connection						// gorm connector starter
+│           └── gorm_connection.go
+├── transports									// data presenter directory
+│   └── fiber
+│       ├── fiber_handler						// restAPI handler
+│       │   ├── fiber_handler_customer.go
+│       │   ├── fiber_handler_invoice.go
+│       │   ├── fiber_handler_item.go
+│       │   ├── fiber_handler_item_type.go
+│       │   ├── fiber_handler_misc.go
+│       │   └── fiber_handler_quantity.go
+│       ├── fiber_middleware					// API middleware
+│       │   └── middleware.go
+│       ├── fiber_presenter						// json presenter
+│       │   └── fiber_presenter.go
+│       └── fiber_router						// http router
+│           └── router.go
+└── utils										// utils storage
+    ├── checker.go
+    ├── errors.go
+    ├── logger.go
+    ├── ulid.go
+    └── validator.go
 ```
 
 ## API
@@ -87,12 +137,3 @@ go build
 - `PUT` : Complete a task of a project
 - `DELETE` : Undo a task of a project
 
-## Todo
-
-- [x] Support basic REST APIs.
-- [ ] Support Authentication with user for securing the APIs.
-- [ ] Make convenient wrappers for creating API handlers.
-- [ ] Write the tests for all APIs.
-- [x] Organize the code with packages
-- [ ] Make docs with GoDoc
-- [ ] Building a deployment process

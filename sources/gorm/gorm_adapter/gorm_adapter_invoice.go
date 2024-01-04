@@ -16,6 +16,7 @@ func (g *gormAdapter) CreateInvoice(req *model.RequestCreateInvoice) error {
 			DueDate:    &req.DueDate,
 			Subject:    &req.Subject,
 			CustomerId: &req.CustomerId,
+			Status:     &req.Status,
 		}
 
 		err := tx.Clauses(clause.Returning{}).Create(&invoice).Error
@@ -67,7 +68,7 @@ func (g *gormAdapter) GetListInvoice(isDelete bool, limit int, offset int, issue
 		total     int
 	)
 
-	db := g.Table("invoices").Select("invoices.id AS invoice_id", "invoices.created_at AS issue_date", "invoices.due_date", "invoices.subject", "customers.name AS customer_name", "customers.id AS customer_id", "count(items.id) AS total_items").
+	db := g.Table("invoices").Select("invoices.id AS invoice_id", "invoices.created_at AS issue_date", "invoices.due_date", "invoices.subject", "customers.name AS customer_name", "customers.id AS customer_id", "count(items.id) AS total_items", "invoices.status").
 		Joins("LEFT JOIN customers ON customers.id = invoices.customer_id").
 		Joins("LEFT JOIN quantities ON quantities.invoice_id = invoices.id").
 		Joins("LEFT JOIN items ON quantities.item_id = items.id").
@@ -134,7 +135,7 @@ func (g *gormAdapter) GetInvoiceById(invoiceId *int) (*model.ResponseInvoiceById
 
 	err := g.Transaction(func(tx *gorm.DB) error {
 		err := g.Raw(
-			`SELECT invoices.id AS invoice_id, invoices.created_at AS issue_date, invoices.due_date, invoices.subject, customers.name AS customer_name, customers.id AS customer_id, count(items.id) AS total_items 
+			`SELECT invoices.id AS invoice_id, invoices.created_at AS issue_date, invoices.due_date, invoices.subject, customers.name AS customer_name, customers.id AS customer_id, count(items.id) AS total_items . invoices.status
 			FROM invoices 
 			LEFT JOIN customers ON customers.id = invoices.customer_id
 			LEFT JOIN quantities ON quantities.invoice_id = invoices.id
@@ -173,6 +174,7 @@ func (g *gormAdapter) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) err
 			DueDate:    &req.DueDate,
 			Subject:    &req.Subject,
 			CustomerId: &req.CustomerId,
+			Status:     &req.Status,
 		}
 
 		err := tx.Model(&invoice).Where("is_delete = ?", false).Clauses(clause.Locking{Strength: "UPDATE"}).Updates(invoice).Error

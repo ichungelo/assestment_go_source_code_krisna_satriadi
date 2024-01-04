@@ -1,0 +1,1504 @@
+{
+	"info": {
+		"_postman_id": "7512c72d-a153-4502-91c2-6401b2adb186",
+		"name": "Documentation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17276331"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Get List Customers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get List Customers",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/customers",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 05:47:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1206"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": [\n        {\n            \"id\": 6,\n            \"isDelete\": false,\n            \"createdAt\": \"2024-01-04T05:33:51.012Z\",\n            \"updatedAt\": \"2024-01-04T05:33:51.012Z\",\n            \"deletedAt\": null,\n            \"name\": \"Krisna Satriadi\",\n            \"address\": \"JL. Peruk\",\n            \"invoices\": null\n        },\n        {\n            \"id\": 5,\n            \"isDelete\": false,\n            \"createdAt\": \"2024-01-04T05:33:47.629Z\",\n            \"updatedAt\": \"2024-01-04T05:33:47.629Z\",\n            \"deletedAt\": null,\n            \"name\": \"Krisna Satriadi\",\n            \"address\": \"JL. Peruk\",\n            \"invoices\": null\n        },\n        {\n            \"id\": 4,\n            \"isDelete\": false,\n            \"createdAt\": \"2024-01-04T05:32:45.06Z\",\n            \"updatedAt\": \"2024-01-04T05:32:45.06Z\",\n            \"deletedAt\": null,\n            \"name\": \"Krisna Satriadi\",\n            \"address\": \"JL. Peruk\",\n            \"invoices\": null\n        },\n        {\n            \"id\": 3,\n            \"isDelete\": false,\n            \"createdAt\": \"2024-01-04T04:44:13.344Z\",\n            \"updatedAt\": \"2024-01-04T04:44:13.344Z\",\n            \"deletedAt\": null,\n            \"name\": \"krisna satriadi\",\n            \"address\": \"jl peruk\",\n            \"invoices\": null\n        },\n        {\n            \"id\": 2,\n            \"isDelete\": false,\n            \"createdAt\": \"2024-01-04T04:41:21.469Z\",\n            \"updatedAt\": \"2024-01-04T04:41:21.469Z\",\n            \"deletedAt\": null,\n            \"name\": \"krisna satriadi\",\n            \"address\": \"jl peruk\",\n            \"invoices\": null\n        },\n        {\n            \"id\": 1,\n            \"isDelete\": false,\n            \"createdAt\": \"2024-01-04T04:38:33.678Z\",\n            \"updatedAt\": \"2024-01-04T05:47:20.255Z\",\n            \"deletedAt\": null,\n            \"name\": \"Krisna Satriadi [EDITTED]\",\n            \"address\": \"JL. Peruk [EDITTED]\",\n            \"invoices\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{bodyCustomerName}}\",\n    \"address\": \"{{bodyCustomerAddress}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Customer",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{bodyCustomerName}}\",\n    \"address\": \"{{bodyCustomerAddress}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/customers",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 05:32:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{bodyCustomerNameEdit}}\",\n    \"address\": \"{{bodyCustomerAddressEdit}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/customers/{{customerId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Customer",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{bodyCustomerNameEdit}}\",\n    \"address\": \"{{bodyCustomerAddressEdit}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:4000/api/v1/customers/{{customerId}}",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"{{customerId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 05:47:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/api/v1/customers/{{customerId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Customer",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:4000/api/v1/customers/{{customerId}}",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"{{customerId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 05:49:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ItemType",
+			"item": [
+				{
+					"name": "Get List Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/api/v1/types",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"types"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get List Type",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:4000/api/v1/types",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"types"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 08:00:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "139"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": [\n        {\n            \"id\": 2,\n            \"name\": \"Service\"\n        },\n        {\n            \"id\": 1,\n            \"name\": \"Hardware\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"{{bodyTypeNameHardware}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/types",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"types"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Type",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"{{bodyTypeNameHardware}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:4000/api/v1/types",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"types"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 07:59:39 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Type",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{bodyTypeNameEdit}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/types/{{typeId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"types",
+								"{{typeId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Type",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"TEST [EDITTED]\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:4000/api/v1/types/3",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"types",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 08:02:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/api/v1/types/{{typeId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"types",
+								"{{typeId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Type",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:4000/api/v1/types/{{typeId}}",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"types",
+										"{{typeId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 08:06:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Item",
+			"item": [
+				{
+					"name": "Get Item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/api/v1/items",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"items"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Item",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:4000/api/v1/items",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"items"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 08:22:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "169"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": [\n        {\n            \"id\": 2,\n            \"name\": \"Test\",\n            \"type\": \"Service\"\n        },\n        {\n            \"id\": 1,\n            \"name\": \"Design\",\n            \"type\": \"Hardware\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{bodyItemName}}\",\n    \"itemTypeId\": {{typeId}},\n    \"unitPrice\": {{bodyItemUnitPrice}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/items",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"items"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Item",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{bodyItemName}}\",\n    \"itemTypeId\": {{typeId}},\n    \"unitPrice\": {{bodyItemUnitPrice}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:4000/api/v1/items",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"items"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 08:17:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Item",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{bodyTypeNameEdit}}\",\n    \"itemTypeId\": {{typeId}},\n    \"unitPrice\": {{bodyItemUnitPrice}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/items/{{itemId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"items",
+								"{{itemId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Item",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{bodyTypeNameEdit}}\",\n    \"itemTypeId\": 1,\n    \"unitPrice\": 100000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:4000/api/v1/items/{{itemId}}",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"items",
+										"{{itemId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 08:30:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/api/v1/items/{{itemId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"items",
+								"{{itemId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Item",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:4000/api/v1/items/{{itemId}}",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"items",
+										"{{itemId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 08:31:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"error\": null,\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Invoice",
+			"item": [
+				{
+					"name": "Create Invoice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"{{bodyInvoicestatus}}\",\n    \"subject\": \"{{bodyInvoiceSubject}}\",\n    \"customerId\": {{customerId}},\n    \"dueDate\": \"{{bodyInvoiceDueDate}}\",\n    \"items\": [\n        {\n            \"itemId\": {{bodyInvoiceItemId1}},\n            \"count\": {{bodyInvoiceCount1}}\n        },\n        {\n            \"itemId\": {{bodyInvoiceItemId2}},\n            \"count\": {{bodyInvoiceCount2}}\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"invoices"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Invoice",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"subject\": \"{{bodyInvoiceSubject}}\",\n    \"customerId\": {{customerId}},\n    \"dueDate\": \"{{bodyInvoiceDueDate}}\",\n    \"items\": [\n        {\n            \"itemId\": {{bodyInvoiceItemId1}},\n            \"count\": {{bodyInvoiceCount1}}\n        },\n        {\n            \"itemId\": {{bodyInvoiceItemId2}},\n            \"count\": {{bodyInvoiceCount2}}\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:4000/api/v1/invoices",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"invoices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 12:09:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get List Invoice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/invoices",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"invoices"
+							],
+							"query": [
+								{
+									"key": "isDelete",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "issueDate",
+									"value": "{{bodyInvoiceDueDate}}",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "totalItems",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "customer",
+									"value": "Kri",
+									"disabled": true
+								},
+								{
+									"key": "dueDate",
+									"value": "{{bodyInvoiceDueDate}}",
+									"disabled": true
+								},
+								{
+									"key": "invoiceId",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get List Invoice",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/invoices?totalItems=2",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"invoices"
+									],
+									"query": [
+										{
+											"key": "isDelete",
+											"value": "false",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "issueDate",
+											"value": "{{bodyInvoiceDueDate}}",
+											"disabled": true
+										},
+										{
+											"key": "subject",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "totalItems",
+											"value": "2"
+										},
+										{
+											"key": "customer",
+											"value": "Kri",
+											"disabled": true
+										},
+										{
+											"key": "dueDate",
+											"value": "{{bodyInvoiceDueDate}}",
+											"disabled": true
+										},
+										{
+											"key": "invoiceId",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 17:49:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1065"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"message\": \"Success\"\n    },\n    \"result\": {\n        \"total\": 5,\n        \"count\": 5,\n        \"start\": 0,\n        \"result\": [\n            {\n                \"invoiceId\": 33,\n                \"issueDate\": \"2024-01-04T17:48:04.979Z\",\n                \"subject\": \"Invoice example\",\n                \"totalItems\": 2,\n                \"customerName\": \"Krisna Satriadi [EDITTED]\",\n                \"dueDate\": \"2024-01-07T17:00:00Z\",\n                \"status\": \"UNPAID\"\n            },\n            {\n                \"invoiceId\": 32,\n                \"issueDate\": \"2024-01-04T17:46:55.158Z\",\n                \"subject\": \"Invoice example\",\n                \"totalItems\": 2,\n                \"customerName\": \"Krisna Satriadi [EDITTED]\",\n                \"dueDate\": \"2024-01-07T17:00:00Z\",\n                \"status\": \"UNPAID\"\n            },\n            {\n                \"invoiceId\": 31,\n                \"issueDate\": \"2024-01-04T12:09:28.086Z\",\n                \"subject\": \"EDITTED\",\n                \"totalItems\": 2,\n                \"customerName\": \"Krisna Satriadi [EDITTED]\",\n                \"dueDate\": \"2024-01-07T17:00:00Z\",\n                \"status\": \"UNPAID\"\n            },\n            {\n                \"invoiceId\": 30,\n                \"issueDate\": \"2024-01-04T12:03:40.817Z\",\n                \"subject\": \"test invoice\",\n                \"totalItems\": 2,\n                \"customerName\": \"Krisna Satriadi [EDITTED]\",\n                \"dueDate\": \"2024-01-07T17:00:00Z\",\n                \"status\": \"UNPAID\"\n            },\n            {\n                \"invoiceId\": 26,\n                \"issueDate\": \"2024-01-04T11:55:14.415Z\",\n                \"subject\": \"test invoice\",\n                \"totalItems\": 2,\n                \"customerName\": \"Krisna Satriadi [EDITTED]\",\n                \"dueDate\": \"2024-01-07T17:00:00Z\",\n                \"status\": \"UNPAID\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Invoice By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/invoices/{{invoiceId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"invoices",
+								"{{invoiceId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Invoice By Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/invoices/30",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"invoices",
+										"30"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 14:00:55 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "385"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"message\": \"Success\"\n    },\n    \"result\": {\n        \"invoiceId\": 30,\n        \"issueDate\": \"2024-01-04T12:03:40.817Z\",\n        \"dueDate\": \"2024-01-07T17:00:00Z\",\n        \"subject\": \"test invoice\",\n        \"customerName\": \"Krisna Satriadi [EDITTED]\",\n        \"customerId\": 1,\n        \"totalItems\": 2,\n        \"items\": [\n            {\n                \"id\": 1,\n                \"name\": \"Design\",\n                \"unitPrice\": 230,\n                \"quantity\": 100\n            },\n            {\n                \"id\": 2,\n                \"name\": \"[EDITTED]\",\n                \"unitPrice\": 100000,\n                \"quantity\": 56\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Invoice",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"{{bodyInvoicestatus}}\",\n    \"subject\": \"{{bodyInvoiceSubject}}\",\n    \"customerId\": {{customerId}},\n    \"dueDate\": \"{{bodyInvoiceDueDate}}\",\n    \"items\": [\n        {\n            \"itemId\": {{bodyInvoiceItemId1}},\n            \"count\": {{bodyInvoiceCount1}}\n        },\n        {\n            \"itemId\": {{bodyInvoiceItemId2}},\n            \"count\": {{bodyInvoiceCount2}}\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/invoices/31",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"invoices",
+								"31"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Invoice",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \n    \"subject\": \"EDITTED\",\n    \"customerId\": 1,\n    \"dueDate\": \"{{bodyInvoiceDueDate}}\",\n    \"items\": [\n        {\n            \"itemId\": {{bodyInvoiceItemId1}},\n            \"count\": 99\n        },\n        {\n            \"itemId\": {{bodyInvoiceItemId2}},\n            \"count\": 99\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/invoices/31",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"invoices",
+										"31"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 17:44:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Invoice Item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/invoices/14/items/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"invoices",
+								"14",
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Invoice Item",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/invoices/14/items/1",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"invoices",
+										"14",
+										"items",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 16:04:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Invoice",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/invoices/{{invoiceId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"invoices",
+								"{{invoiceId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Invoice",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/invoices/17",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"invoices",
+										"17"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 04 Jan 2024 17:37:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"message\": \"Success\"\n    },\n    \"result\": null\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

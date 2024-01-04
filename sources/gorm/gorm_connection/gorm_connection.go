@@ -46,6 +46,9 @@ func connectDB(stage config.Stage) *gorm.DB {
 		db.Logger = logger.Default.LogMode(logger.Info)
 	}
 
+	createDatabaseCommand := fmt.Sprintf("CREATE DATABASE %s", dbName)
+    db.Exec(createDatabaseCommand)
+
 	utils.Info("running migrations...", nil)
 	db.AutoMigrate(
 		&model.Customer{},
