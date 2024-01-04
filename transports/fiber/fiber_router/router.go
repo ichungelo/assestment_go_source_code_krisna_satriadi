@@ -12,15 +12,17 @@ type Router struct {
 	fiberhandler.RouterFiberItemType
 	fiberhandler.RouterFiberItem
 	fiberhandler.RouterFiberMisc
+	fiberhandler.RouterFiberQuantity
 }
 
-func NewRouter(rfCustomer fiberhandler.RouterFiberCustomer, rfInvoice fiberhandler.RouterFiberInvoice, rfItemType fiberhandler.RouterFiberItemType, rfItem fiberhandler.RouterFiberItem, rfMisc fiberhandler.RouterFiberMisc) *Router {
+func NewRouter(rfCustomer fiberhandler.RouterFiberCustomer, rfInvoice fiberhandler.RouterFiberInvoice, rfItemType fiberhandler.RouterFiberItemType, rfItem fiberhandler.RouterFiberItem, rfMisc fiberhandler.RouterFiberMisc, rfQuantity fiberhandler.RouterFiberQuantity) *Router {
 	return &Router{
 		RouterFiberCustomer: rfCustomer,
 		RouterFiberInvoice:  rfInvoice,
 		RouterFiberItemType: rfItemType,
 		RouterFiberItem:     rfItem,
 		RouterFiberMisc:     rfMisc,
+		RouterFiberQuantity: rfQuantity,
 	}
 }
 
@@ -56,7 +58,11 @@ func (r *Router) Route(app fiber.Router) {
 	item.Put("/:itemId", r.UpdateItemById())
 	item.Delete("/:itemId", r.DeleteItemById())
 
+	//! ItemType
+	route.Delete("/invoices/:invoiceId/items/:itemId", r.DeleteQuantityById())
+
 	//! misc
 	app.Get("/monitor", monitor.New(monitor.Config{Title: "Invoice App Monitoring"}))
 	app.Use(r.NotFound())
+
 }

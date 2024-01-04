@@ -11,6 +11,7 @@ type Invoice struct {
 	DeletedAt  *time.Time `json:"deletedAt"`
 	Subject    *string    `json:"subject"`
 	CustomerId *int       `json:"customerId"`
+	Status     *string    `json:"status"`
 	Customer   *Customer  `json:"customer" gorm:"constraint:OnUpdate:CASCADE,OnDelete:RESTRICT"`
 	Items      []Item     `gorm:"many2many:quantities;foreignKey:Id;joinForeignKey:InvoiceId;References:Id;joinReferences:ItemId" json:"items"`
 }
@@ -19,6 +20,7 @@ type Invoice struct {
 type RequestCreateInvoice struct {
 	Subject    string        `json:"subject" validate:"required"`
 	CustomerId int           `json:"customerId" validate:"required"`
+	Status     string        `json:"status"  validate:"required"`
 	DueDate    time.Time     `json:"dueDate" validate:"required"`
 	Items      []RequestItem `json:"items" validate:"required"`
 }
@@ -27,6 +29,8 @@ type RequestUpdateInvoiceById struct {
 	InvoiceId  int           `json:"invoiceId" validate:"required"`
 	Subject    string        `json:"subject" validate:"required"`
 	CustomerId int           `json:"customerId" validate:"required"`
+	Status     string        `json:"status"  validate:"required"`
+	DueDate    time.Time     `json:"dueDate" validate:"required"`
 	Items      []RequestItem `json:"items" validate:"required"`
 }
 

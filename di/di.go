@@ -26,9 +26,12 @@ func Initializer(gormDB *gorm.DB) *fiberrouter.Router {
 
 		sMisc = services.NewServiceMisc(gormAdapter)
 		hMisc = fiberhandler.NewMiscHandler(sMisc)
+
+		sQuantity = services.NewServiceQuantity(gormAdapter)
+		hQuantity = fiberhandler.NewQuantityHandler(sQuantity)
 	)
 
-	router := fiberrouter.NewRouter(hCustomer, hInvoice, hItemType, hItem, hMisc)
+	router := fiberrouter.NewRouter(hCustomer, hInvoice, hItemType, hItem, hMisc, hQuantity)
 	return router
 
 }
