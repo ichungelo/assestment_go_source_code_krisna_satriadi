@@ -94,21 +94,32 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 	}
 
 	if req.IssueDate != nil {
-		v, err := time.Parse(time.RFC3339, *req.IssueDate)
+		v, err := time.Parse("2006-01-02", *req.IssueDate)
 
-		if err == nil {
-			date := time.Date(v.Year(), v.Month(), v.Day(), 0, 0, 0, 0, time.Local)
-			issueDate = &date
+		if err != nil {
+			utils.Error(err, nil)
+			errData := utils.ErrorCode{
+				Code: utils.ERR_PARSE_DATE,
+				Err:  err,
+			}
+			return nil, &errData
 		}
+		issueDate = &v
 	}
 
 	if req.DueDate != nil {
-		v, err := time.Parse(time.RFC3339, *req.DueDate)
+		v, err := time.Parse("2006-01-02", *req.DueDate)
 
-		if err == nil {
-			date := time.Date(v.Year(), v.Month(), v.Day(), 0, 0, 0, 0, time.Local)
-			dueDate = &date
+		if err != nil {
+			utils.Error(err, nil)
+			errData := utils.ErrorCode{
+				Code: utils.ERR_PARSE_DATE,
+				Err:  err,
+			}
+			return nil, &errData
+
 		}
+		dueDate = &v
 	}
 
 	res, err := s.RepositoryInvoice.GetListInvoice(isDelete, limit, offset, issueDate, req.Subject, totalItems, req.Customer, dueDate, invoiceId)
@@ -155,7 +166,7 @@ func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*mode
 	res.SubTotal = &subTotal
 	res.Tax = &tax
 	res.GrandTotal = &grandTotal
-	
+
 	return res, nil
 }
 

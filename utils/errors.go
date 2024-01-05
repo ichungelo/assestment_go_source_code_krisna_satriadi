@@ -42,6 +42,7 @@ const (
 	ERR_FAILED_DELETE_ITEM Code = "019"
 
 	ERR_FAILED_DELETE_QUANTITY Code = "020"
+	ERR_PARSE_DATE Code= "021"
 
 	ERR_NOT_FOUND             Code = "099"
 	ERR_INTERNAL_SERVER_ERROR Code = "100"
@@ -163,6 +164,11 @@ var ErrorDataMap = map[Code]ErrorApi{
 	ERR_FAILED_DELETE_QUANTITY: {
 		Code:           "020",
 		Message:        "Failed to delete quantity",
+		HttpStatusCode: http.StatusInternalServerError,
+	},
+	ERR_PARSE_DATE: {
+		Code:           "021",
+		Message:        "Failed to parse date",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
 

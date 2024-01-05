@@ -33,7 +33,6 @@ func connectDB(stage config.Stage) *gorm.DB {
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True", user, pass, host, port, dbName)
 	
-	fmt.Println(dsn)
 	db, err := gorm.Open(mysql.Open(dsn))
 	if err != nil {
 		utils.Error(err, nil)

@@ -19,7 +19,6 @@ func InvoiceStatusValidator(s string) (*string, error) {
 	formattedStr := strings.ToUpper(clearString(s))
 
 	for _, v := range listStatus {
-		fmt.Println(formattedStr, v)
 		if formattedStr == v {
 			isValid = true
 			defName = &v

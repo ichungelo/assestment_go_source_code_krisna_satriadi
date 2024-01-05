@@ -76,13 +76,17 @@ func (g *gormAdapter) GetListInvoice(isDelete bool, limit int, offset int, issue
 		Where("invoices.is_delete = ?", isDelete)
 
 	if issueDate != nil {
-		limitTime := issueDate.Add(24 * time.Hour)
-		db = db.Where("invoices.created_at BETWEEN ? AND ?", *issueDate, limitTime)
+		startDate := issueDate.Format("2006-01-02")
+		endDate := issueDate.Add(24 * time.Hour).Format("2006-01-02")
+
+		db = db.Where("invoices.created_at BETWEEN ? AND ?", startDate, endDate)
 	}
 
 	if dueDate != nil {
-		limitTime := dueDate.Add(24 * time.Hour)
-		db = db.Where("invoices.due_date BETWEEN ? AND ?", *dueDate, limitTime)
+		startDate := dueDate.Format("2006-01-02")
+		endDate := dueDate.Add(24 * time.Hour).Format("2006-01-02")
+
+		db = db.Where("invoices.due_date BETWEEN ? AND ?", startDate, endDate)
 	}
 
 	if subject != nil && *subject != "" {
