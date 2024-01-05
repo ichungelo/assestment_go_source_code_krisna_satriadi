@@ -63,8 +63,8 @@ make build
 ├── di											// dependency injector
 │   └── di.go
 ├── documentation								//	postman documentation
-│   ├── assestment.postman_collection.json
-│   └── assestment.postman_environment.json
+│   ├── assessment_krisna.postman_collection.json
+│   └── assessment_krisna.postman_environment.json
 ├── go.mod
 ├── go.sum
 ├── Makefile
