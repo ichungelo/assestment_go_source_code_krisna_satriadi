@@ -119,7 +119,8 @@
 								"v1",
 								"customers"
 							]
-						}
+						},
+						"description": "JSON BODY OBJECT\n\n| **field** | **desc** |\n| --- | --- |\n| name | customer name |\n| address | customer address |"
 					},
 					"response": [
 						{
@@ -431,7 +432,8 @@
 								"v1",
 								"types"
 							]
-						}
+						},
+						"description": "JSON BODY OBJECT\n\n| **field** | **desc** |\n| --- | --- |\n| name | type name |"
 					},
 					"response": [
 						{
@@ -744,7 +746,8 @@
 								"v1",
 								"items"
 							]
-						}
+						},
+						"description": "JSON BODY OBJECT\n\n| **field** | **desc** |\n| --- | --- |\n| name | item name |\n| itemTypeId | id for type |\n| unitPrice | price per unit |"
 					},
 					"response": [
 						{
@@ -990,7 +993,8 @@
 								"v1",
 								"invoices"
 							]
-						}
+						},
+						"description": "JSON BODY\n\n| **field** | **desc** |\n| --- | --- |\n| status \\[required\\] | invoice status \\[\"PAID\", \"UNPAID\"\\] |\n| subject \\[required\\] | payment subject of invoice |\n| customerId \\[required\\] | customer id |\n| dueDate | payment due date \\[format: RFC3339\\] |\n| items \\[array\\] | contain object of \"item\" |\n\nITEM\n\n| **field** | **desc** |\n| --- | --- |\n| itemId | item id |\n| count | total item quantity |"
 					},
 					"response": [
 						{
@@ -1083,7 +1087,7 @@
 								},
 								{
 									"key": "issueDate",
-									"value": "{{bodyInvoiceDueDate}}",
+									"value": "2024-01-04",
 									"disabled": true
 								},
 								{
@@ -1103,7 +1107,7 @@
 								},
 								{
 									"key": "dueDate",
-									"value": "{{bodyInvoiceDueDate}}",
+									"value": "2024-01-07",
 									"disabled": true
 								},
 								{
@@ -1233,7 +1237,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{host}}/api/v1/invoices/30",
+									"raw": "{{host}}/api/v1/invoices/{{invoiceId}}",
 									"host": [
 										"{{host}}"
 									],
@@ -1241,7 +1245,7 @@
 										"api",
 										"v1",
 										"invoices",
-										"30"
+										"{{invoiceId}}"
 									]
 								}
 							},
@@ -1251,7 +1255,7 @@
 							"header": [
 								{
 									"key": "Date",
-									"value": "Thu, 04 Jan 2024 14:00:55 GMT"
+									"value": "Fri, 05 Jan 2024 01:30:47 GMT"
 								},
 								{
 									"key": "Content-Type",
@@ -1259,7 +1263,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "385"
+									"value": "408"
 								},
 								{
 									"key": "Vary",
@@ -1271,7 +1275,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"message\": \"Success\"\n    },\n    \"result\": {\n        \"invoiceId\": 30,\n        \"issueDate\": \"2024-01-04T12:03:40.817Z\",\n        \"dueDate\": \"2024-01-07T17:00:00Z\",\n        \"subject\": \"test invoice\",\n        \"customerName\": \"Krisna Satriadi [EDITTED]\",\n        \"customerId\": 1,\n        \"totalItems\": 2,\n        \"items\": [\n            {\n                \"id\": 1,\n                \"name\": \"Design\",\n                \"unitPrice\": 230,\n                \"quantity\": 100\n            },\n            {\n                \"id\": 2,\n                \"name\": \"[EDITTED]\",\n                \"unitPrice\": 100000,\n                \"quantity\": 56\n            }\n        ]\n    }\n}"
+							"body": "{\n    \"metadata\": {\n        \"success\": true,\n        \"Code\": \"000\",\n        \"message\": \"Success\"\n    },\n    \"result\": {\n        \"invoiceId\": 34,\n        \"issueDate\": \"2024-01-05T00:10:39.819Z\",\n        \"dueDate\": \"2024-01-07T17:00:00Z\",\n        \"subject\": \"Invoice example\",\n        \"customerName\": \"Krisna Satriadi [EDITTED]\",\n        \"customerId\": 1,\n        \"totalItems\": 1,\n        \"status\": \"UNPAID\",\n        \"subTotal\": 99900000,\n        \"tax\": 9990000,\n        \"grandTotal\": 109890000,\n        \"items\": [\n            {\n                \"id\": 2,\n                \"name\": \"[EDITTED]\",\n                \"unitPrice\": 100000,\n                \"quantity\": 999\n            }\n        ]\n    }\n}"
 						}
 					]
 				},
@@ -1282,7 +1286,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"status\": \"{{bodyInvoicestatus}}\",\n    \"subject\": \"{{bodyInvoiceSubject}}\",\n    \"customerId\": {{customerId}},\n    \"dueDate\": \"{{bodyInvoiceDueDate}}\",\n    \"items\": [\n        {\n            \"itemId\": {{bodyInvoiceItemId1}},\n            \"count\": {{bodyInvoiceCount1}}\n        },\n        {\n            \"itemId\": {{bodyInvoiceItemId2}},\n            \"count\": {{bodyInvoiceCount2}}\n        }\n    ]\n}",
+							"raw": "{\n    \"status\": \"{{bodyInvoicestatus}}\",\n    \"subject\": \"{{bodyInvoiceSubject}}\",\n    \"customerId\": {{customerId}},\n    \"dueDate\": \"{{bodyInvoiceDueDate}}\",\n    \"items\": [\n        {\n            \"itemId\": {{bodyInvoiceItemId1}},\n            \"action\": {{bodyInvoiceActionEdit}}\n            \n        },\n        {\n            \"itemId\": {{bodyInvoiceItemId2}},\n            \"count\": {{bodyInvoiceCount2}},\n            \"action\": {{bodyInvoiceActionDelete}}\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1290,7 +1294,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/invoices/31",
+							"raw": "{{host}}/api/v1/invoices/{{invoiceId}}",
 							"host": [
 								"{{host}}"
 							],
@@ -1298,9 +1302,10 @@
 								"api",
 								"v1",
 								"invoices",
-								"31"
+								"{{invoiceId}}"
 							]
-						}
+						},
+						"description": "JSON BODY\n\n| **field** | **desc** |\n| --- | --- |\n| status \\[required\\] | invoice status \\[\"PAID\", \"UNPAID\"\\] |\n| subject \\[required\\] | payment subject of invoice |\n| customerId \\[required\\] | customer id |\n| dueDate | payment due date \\[format: RFC3339\\] |\n| items \\[array\\] | contain object of \"item\" |\n\nITEM\n\n| **field** | **desc** |\n| --- | --- |\n| itemId | item id |\n| count | total item quantity |\n| action | user item action \\[\"ADD\", \"EDIT\", \"DELETE\"\\] |"
 					},
 					"response": [
 						{
@@ -1366,7 +1371,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/v1/invoices/14/items/1",
+							"raw": "{{host}}/api/v1/invoices/{{invoiceId}}/items/{{itemId}}",
 							"host": [
 								"{{host}}"
 							],
@@ -1374,9 +1379,9 @@
 								"api",
 								"v1",
 								"invoices",
-								"14",
+								"{{invoiceId}}",
 								"items",
-								"1"
+								"{{itemId}}"
 							]
 						}
 					},
