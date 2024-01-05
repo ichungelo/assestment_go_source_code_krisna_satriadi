@@ -994,7 +994,7 @@
 								"invoices"
 							]
 						},
-						"description": "JSON BODY\n\n| **field** | **desc** |\n| --- | --- |\n| status \\[required\\] | invoice status \\[\"PAID\", \"UNPAID\"\\] |\n| subject \\[required\\] | payment subject of invoice |\n| customerId \\[required\\] | customer id |\n| dueDate | payment due date \\[format: RFC3339\\] |\n| items \\[array\\] | contain object of \"item\" |\n\nITEM\n\n| **field** | **desc** |\n| --- | --- |\n| itemId | item id |\n| count | total item quantity |"
+						"description": "JSON BODY\n\n| **field** | **desc** |\n| --- | --- |\n| status \\[required\\] | invoice status \\[\"PAID\", \"UNPAID\"\\] |\n| subject \\[required\\] | payment subject of invoice |\n| customerId \\[required\\] | customer id |\n| dueDate | payment due date \\[format: YYYY-MM-DD\\] |\n| items \\[array\\] | contain object of \"item\" |\n\nITEM\n\n| **field** | **desc** |\n| --- | --- |\n| itemId | item id |\n| count | total item quantity |"
 					},
 					"response": [
 						{
@@ -1305,7 +1305,7 @@
 								"{{invoiceId}}"
 							]
 						},
-						"description": "JSON BODY\n\n| **field** | **desc** |\n| --- | --- |\n| status \\[required\\] | invoice status \\[\"PAID\", \"UNPAID\"\\] |\n| subject \\[required\\] | payment subject of invoice |\n| customerId \\[required\\] | customer id |\n| dueDate | payment due date \\[format: RFC3339\\] |\n| items \\[array\\] | contain object of \"item\" |\n\nITEM\n\n| **field** | **desc** |\n| --- | --- |\n| itemId | item id |\n| count | total item quantity |\n| action | user item action \\[\"ADD\", \"EDIT\", \"DELETE\"\\] |"
+						"description": "JSON BODY\n\n| **field** | **desc** |\n| --- | --- |\n| status \\[required\\] | invoice status \\[\"PAID\", \"UNPAID\"\\] |\n| subject \\[required\\] | payment subject of invoice |\n| customerId \\[required\\] | customer id |\n| dueDate | payment due date \\[format: YYYY-MM-DD\\] |\n| items \\[array\\] | contain object of \"item\" |\n\nITEM\n\n| **field** | **desc** |\n| --- | --- |\n| itemId | item id |\n| count | total item quantity |\n| action | user item action \\[\"ADD\", \"EDIT\", \"DELETE\"\\] |"
 					},
 					"response": [
 						{
