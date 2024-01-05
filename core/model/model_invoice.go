@@ -25,18 +25,24 @@ type RequestCreateInvoice struct {
 	Items      []RequestItem `json:"items" validate:"required"`
 }
 
-type RequestUpdateInvoiceById struct {
-	InvoiceId  int           `json:"invoiceId" validate:"required"`
-	Subject    string        `json:"subject" validate:"required"`
-	CustomerId int           `json:"customerId" validate:"required"`
-	Status     string        `json:"status"  validate:"required"`
-	DueDate    time.Time     `json:"dueDate" validate:"required"`
-	Items      []RequestItem `json:"items" validate:"required"`
-}
-
 type RequestItem struct {
 	ItemId int `json:"itemId" validate:"required"`
 	Count  int `json:"count" validate:"required"`
+}
+
+type RequestUpdateInvoiceById struct {
+	InvoiceId  int                 `json:"invoiceId" validate:"required"`
+	Subject    string              `json:"subject" validate:"required"`
+	CustomerId int                 `json:"customerId" validate:"required"`
+	Status     string              `json:"status"  validate:"required"`
+	DueDate    time.Time           `json:"dueDate" validate:"required"`
+	Items      []RequestItemUpdate `json:"items" validate:"required"`
+}
+
+type RequestItemUpdate struct {
+	ItemId int    `json:"itemId" validate:"required"`
+	Count  *int    `json:"count" validate:"required"`
+	Action string `json:"action" validate:"required"`
 }
 
 type RequestGetInvoiceById struct {

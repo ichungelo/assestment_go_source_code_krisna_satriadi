@@ -183,6 +183,19 @@ func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) 
 
 	req.Status = *status
 
+	for i, v := range req.Items {
+		action, err := utils.InvoiceItemActionValidator(v.Action)
+		if err != nil {
+			utils.Error(err, nil)
+			errData := utils.ErrorCode{
+				Code: utils.ERR_VALIDATE,
+				Err:  err,
+			}
+			return &errData
+		}
+
+		req.Items[i].Action = *action
+	}
 	err = s.RepositoryInvoice.UpdateInvoiceById(req)
 	if err != nil {
 		utils.Error(err, nil)

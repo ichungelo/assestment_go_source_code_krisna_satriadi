@@ -139,7 +139,7 @@ func (g *gormAdapter) GetInvoiceById(invoiceId *int) (*model.ResponseInvoiceById
 
 	err := g.Transaction(func(tx *gorm.DB) error {
 		err := g.Raw(
-			`SELECT invoices.id AS invoice_id, invoices.created_at AS issue_date, invoices.due_date, invoices.subject, customers.name AS customer_name, customers.id AS customer_id, count(items.id) AS total_items . invoices.status
+			`SELECT invoices.id AS invoice_id, invoices.created_at AS issue_date, invoices.due_date, invoices.subject, customers.name AS customer_name, customers.id AS customer_id, count(items.id) AS total_items, invoices.status
 			FROM invoices 
 			LEFT JOIN customers ON customers.id = invoices.customer_id
 			LEFT JOIN quantities ON quantities.invoice_id = invoices.id
@@ -186,6 +186,8 @@ func (g *gormAdapter) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) err
 			return err
 		}
 
+		updateItems := []model.Quantity{}
+		deleteItems := []model.Quantity{}
 		for _, v := range req.Items {
 			var (
 				itemId    = v.ItemId
@@ -196,12 +198,35 @@ func (g *gormAdapter) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) err
 			item := model.Quantity{
 				ItemId:    &itemId,
 				InvoiceId: &invoiceId,
-				Count:     &count,
+				Count:     count,
 			}
 
-			if err := tx.Model(&item).Where("item_id = ?", itemId).Where("invoice_id = ?", invoiceId).Update("count", count).Error; err != nil {
-				if errors.Is(err, gorm.ErrRecordNotFound) {
-					tx.Create(&item)
+			if v.Action == "EDIT" || v.Action == "ADD" {
+				if count == nil {
+					return fmt.Errorf("count is null")
+				}
+				updateItems = append(updateItems, item)
+			}
+			if v.Action == "DELETE" {
+				deleteItems = append(deleteItems, item)
+			}
+		}
+
+		if len(updateItems) > 0 {
+			for _, v := range updateItems {
+				if err := tx.Model(&v).Where("item_id = ?", v.ItemId).Where("invoice_id = ?", v.InvoiceId).Update("count", v.Count).Error; err != nil {
+					if errors.Is(err, gorm.ErrRecordNotFound) {
+						tx.Create(&v)
+					}
+				}
+			}
+		}
+
+		if len(deleteItems) > 0 {
+			for _, v := range deleteItems {				
+				err := tx.Model(&v).Where("item_id = ?", v.ItemId).Where("invoice_id = ?", v.InvoiceId).Delete(&v).Error
+				if err != nil {
+					return err
 				}
 			}
 		}
