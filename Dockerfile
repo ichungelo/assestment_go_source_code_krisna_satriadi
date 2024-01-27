@@ -6,34 +6,33 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ENV APP_NAME=test
+COPY . .
+
+ENV APP_NAME=${APP_NAME}
 
 # APP_HOST should use 0.0.0.0 due to docker known host
-ENV APP_HOST=0.0.0.0 
+ENV APP_HOST=${APP_HOST} 
 
-ENV APP_PORT=4000
+ENV APP_PORT=${APP_PORT}
 
-ENV APP_STAGE=dev
+ENV APP_STAGE=${APP_STAGE}
 
 # DB_HOST should be db container name and whould ber register in same docker network
 # to create docker network use command `docker network create [NETWORK NAME]`
 # to connect running container to network use `docker network connect  [NETWORK NAME] [CONTAINER NAME]`
 # to create container with network connection use flag --network [NETWORK NAME]
-ENV DB_HOST=mysql5
+ENV DB_HOST=${DB_HOST}
 
-ENV DB_PORT=3306
+ENV DB_PORT=${DB_PORT}
 
-ENV DB_USER=root
+ENV DB_USER=${DB_USER}
 
-ENV DB_PASS=password
-
-COPY . .
-COPY .env .
+ENV DB_PASS=${DB_PASS}
 
 RUN GOPROXY="https://goproxy.io" go mod download
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./bin/main ./cmd/api/main.go
 
-EXPOSE 4000
+EXPOSE ${APP_PORT}
 
 CMD ["./bin/main"]
