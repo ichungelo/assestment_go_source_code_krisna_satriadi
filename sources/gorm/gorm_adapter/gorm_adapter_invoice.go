@@ -153,7 +153,7 @@ func (g *gormAdapter) GetInvoiceById(invoiceId *int) (*model.ResponseInvoiceById
 
 		err = g.Raw(
 			`
-			SELECT items.id, items.name, items.unit_price, quantities.count AS quantity FROM items
+			SELECT items.id, items.name, items.unit_price, quantities.count AS quantity, (items.unit_price * quantities.count) as total_price FROM items
 			LEFT JOIN quantities ON items.id = quantities.item_id
 			LEFT JOIN invoices ON invoices.id = quantities.invoice_id
 			WHERE invoices.id = ?;

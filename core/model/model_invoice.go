@@ -41,7 +41,7 @@ type RequestUpdateInvoiceById struct {
 
 type RequestItemUpdate struct {
 	ItemId int    `json:"itemId" validate:"required"`
-	Count  *int    `json:"count" validate:"required"`
+	Count  *int   `json:"count" validate:"required"`
 	Action string `json:"action" validate:"required"`
 }
 
@@ -99,8 +99,9 @@ type ResponseInvoiceById struct {
 }
 
 type ResponseListItemInvoice struct {
-	Id        *int    `json:"id"`
-	Name      *string `json:"name"`
-	UnitPrice *int    `json:"unitPrice"`
-	Quantity  *int    `json:"quantity"`
+	Id         *int    `json:"id"`
+	Name       *string `json:"name"`
+	UnitPrice  *int    `json:"unitPrice"`
+	TotalPrice *int    `json:"totalPrice"`
+	Quantity   *int    `json:"quantity"`
 }

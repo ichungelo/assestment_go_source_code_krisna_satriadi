@@ -5,6 +5,7 @@
 - [Go Programming Language](https://go.dev/dl/) v1.20.x
 - [MySQL](https://www.mysql.com/downloads/) v5.7.x
 - [AIR (Go Live Reloader)](https://github.com/cosmtrek/air)
+- [Docker](https://www.docker.com/)
 - Your favorite code editor
 
 ## Installation & Run
@@ -27,6 +28,12 @@ make live
 # Build
 cd assestment_go_source_code_krisna_satriadi
 make build
+```
+
+```bash
+# Build Docker image andd container
+cd assestment_go_source_code_krisna_satriadi
+make container
 ```
 
 ## Structure
