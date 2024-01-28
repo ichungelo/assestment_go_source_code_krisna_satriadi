@@ -10,6 +10,7 @@ build:
 	go build -o bin/assessment_krisna cmd/api/main.go
 
 container:
+	make build
 	docker build -t assessment-krisna-satriadi .
 	docker run -d -p 4000:4000 --network test-network --name assessment-api --env-file .env assessment-krisna-satriadi:latest
 

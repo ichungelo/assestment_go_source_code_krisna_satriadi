@@ -33,6 +33,6 @@ func CheckStage(stage string) (Stage, error) {
 func LoadEnv() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Panic("Error loading .env file")
+		log.Println("Error loading .env file")
 	}
 }
