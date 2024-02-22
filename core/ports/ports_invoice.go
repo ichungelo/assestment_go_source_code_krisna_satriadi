@@ -16,9 +16,9 @@ type RepositoryInvoice interface {
 }
 
 type ServiceInvoice interface {
-	CreateInvoice(req *model.RequestCreateInvoice) *utilerrors.ErrorCode
-	GetListInvoice(req *model.RequestGetListInvoice) (*model.ResponseGetListInvoice, *utilerrors.ErrorCode)
-	GetInvoiceById(req *model.RequestGetInvoiceById) (*model.ResponseInvoiceById, *utilerrors.ErrorCode)
-	UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utilerrors.ErrorCode
-	DeleteInvoiceById(req *model.RequestDeleteInvoiceById) *utilerrors.ErrorCode
+	CreateInvoice(req *model.RequestCreateInvoice) *utilerrors.HttpError
+	GetListInvoice(req *model.RequestGetListInvoice) (*model.ResponseGetListInvoice, *utilerrors.HttpError)
+	GetInvoiceById(req *model.RequestGetInvoiceById) (*model.ResponseInvoiceById, *utilerrors.HttpError)
+	UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utilerrors.HttpError
+	DeleteInvoiceById(req *model.RequestDeleteInvoiceById) *utilerrors.HttpError
 }

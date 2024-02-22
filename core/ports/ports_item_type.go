@@ -13,8 +13,8 @@ type RepositoryItemType interface {
 }
 
 type ServiceItemType interface {
-	CreateItemType(req *model.RequestCreateItemType) *utilerrors.ErrorCode
-	GetListItemType() ([]model.ResponseGetListItemType, *utilerrors.ErrorCode)
-	UpdateItemTypeById(req *model.RequestUpdateItemTypeById) *utilerrors.ErrorCode
-	DeleteItemTypeById(req *model.RequestDeleteItemTypeById) *utilerrors.ErrorCode
+	CreateItemType(req *model.RequestCreateItemType) *utilerrors.HttpError
+	GetListItemType() ([]model.ResponseGetListItemType, *utilerrors.HttpError)
+	UpdateItemTypeById(req *model.RequestUpdateItemTypeById) *utilerrors.HttpError
+	DeleteItemTypeById(req *model.RequestDeleteItemTypeById) *utilerrors.HttpError
 }

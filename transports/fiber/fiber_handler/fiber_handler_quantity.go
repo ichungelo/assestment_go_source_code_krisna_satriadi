@@ -29,15 +29,19 @@ func (h *handlerQuantity) DeleteQuantityById() fiber.Handler {
 		req := model.RequestDeleteQuantityById{}
 
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
+		if err != nil {
+			utillogger.Error(err, nil)
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseData, err)
+
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
+		}
+
 		itemId, err := c.ParamsInt("itemId", 0)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrParseData,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseData, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		req.InvoiceId = invoiceId
@@ -46,17 +50,14 @@ func (h *handlerQuantity) DeleteQuantityById() fiber.Handler {
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		errCode := h.ServiceQuantity.DeleteQuantityById(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		httpError := h.ServiceQuantity.DeleteQuantityById(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, nil, nil, nil)

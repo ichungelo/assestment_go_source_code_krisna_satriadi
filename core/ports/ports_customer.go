@@ -13,8 +13,8 @@ type RepositoryCustomer interface {
 }
 
 type ServiceCustomer interface {
-	CreateCustomer(req *model.RequestCreateCustomer) *utilerrors.ErrorCode
-	GetListCustomer() ([]model.ResponseGetListCustomer, *utilerrors.ErrorCode)
-	UpdateCustomerById(req *model.RequestUpdateCustomerById) *utilerrors.ErrorCode
-	DeleteCustomerById(req *model.RequestDeleteCustomerById) *utilerrors.ErrorCode
+	CreateCustomer(req *model.RequestCreateCustomer) *utilerrors.HttpError
+	GetListCustomer() ([]model.ResponseGetListCustomer, *utilerrors.HttpError)
+	UpdateCustomerById(req *model.RequestUpdateCustomerById) *utilerrors.HttpError
+	DeleteCustomerById(req *model.RequestDeleteCustomerById) *utilerrors.HttpError
 }

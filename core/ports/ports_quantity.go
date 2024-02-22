@@ -10,5 +10,5 @@ type RepositoryQuantity interface {
 }
 
 type ServiceQuantity interface {
-	DeleteQuantityById(req *model.RequestDeleteQuantityById) *utilerrors.ErrorCode
+	DeleteQuantityById(req *model.RequestDeleteQuantityById) *utilerrors.HttpError
 }

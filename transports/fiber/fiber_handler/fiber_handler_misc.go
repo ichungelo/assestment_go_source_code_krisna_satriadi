@@ -26,11 +26,8 @@ func NewMiscHandler(sMisc ports.ServiceMisc) *handlerMisc {
 func (h *handlerMisc) NotFound() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// Return HTTP 404 status and JSON response.
-		errCode := utilerrors.ErrorCode{
-			Code: utilerrors.ErrNotFound,
-			Err:  errors.New("page not found"),
-		}
+		httpError := utilerrors.NewHttpError(utilerrors.ErrNotFound, errors.New("page not found"))
 
-		return fiberpresenter.Presenter(c, nil, nil, &errCode)
+		return fiberpresenter.Presenter(c, nil, nil, httpError)
 	}
 }

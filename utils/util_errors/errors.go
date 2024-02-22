@@ -10,46 +10,40 @@ type ErrorApi struct {
 }
 
 type Code string
-type ErrorCode struct {
+type HttpError struct {
 	Code
 	Err error
 }
 
 const (
-	Success                Code = "000"
-	ErrValidate            Code = "001"
-	ErrParseData           Code = "002"
-	ErrFailedUnmarshalJson Code = "003"
-
-	ErrFailedCreateCustomer Code = "004"
+	Success                 Code = "000" //! START ERROR GENERAL
+	ErrValidate             Code = "001"
+	ErrParseData            Code = "002"
+	ErrFailedUnmarshalJson  Code = "003"
+	ErrNotFound             Code = "099"
+	ErrInternalServerError  Code = "100"
+	ErrGeneral              Code = "999"
+	ErrFailedCreateCustomer Code = "004" //! START ERROR CUSTOMER
 	ErrFailedGetCustomer    Code = "005"
 	ErrFailedUpdateCustomer Code = "006"
 	ErrFailedDeleteCustomer Code = "007"
-
-	ErrFailedCreateInvoice Code = "008"
-	ErrFailedGetInvoice    Code = "009"
-	ErrFailedUpdateInvoice Code = "010"
-	ErrFailedDeleteInvoice Code = "011"
-
-	ErrFailedCreateItemType Code = "012"
+	ErrFailedCreateInvoice  Code = "008" //! START ERROR INVOICE
+	ErrFailedGetInvoice     Code = "009"
+	ErrFailedUpdateInvoice  Code = "010"
+	ErrFailedDeleteInvoice  Code = "011"
+	ErrFailedCreateItemType Code = "012" //! START ERROR ITEM TYPE
 	ErrFailedGetItemType    Code = "013"
 	ErrFailedUpdateItemType Code = "014"
 	ErrFailedDeleteItemType Code = "015"
-
-	ErrFailedCreateItem Code = "016"
-	ErrFailedGetItem    Code = "017"
-	ErrFailedUpdateItem Code = "018"
-	ErrFailedDeleteItem Code = "019"
-
-	ErrFailedDeleteQuantity Code = "020"
+	ErrFailedCreateItem     Code = "016" //! START ERROR ITEM
+	ErrFailedGetItem        Code = "017"
+	ErrFailedUpdateItem     Code = "018"
+	ErrFailedDeleteItem     Code = "019"
+	ErrFailedDeleteQuantity Code = "020" //! START ERROR QUANTITY
 	ErrParseDate            Code = "021"
-
-	ErrNotFound            Code = "099"
-	ErrInternalServerError Code = "100"
-	ErrGeneral             Code = "999"
 )
 
-func GetErrorData(errCode ErrorCode) ErrorApi {
+func GetErrorData(errCode HttpError) ErrorApi {
 	errData := ErrorDataMap[errCode.Code]
 	errData.Err = errCode.Err
 	return errData
@@ -187,4 +181,11 @@ var ErrorDataMap = map[Code]ErrorApi{
 		Message:        "error happen",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
+}
+
+func NewHttpError(code Code, err error) *HttpError {
+	return &HttpError{
+		Code: code,
+		Err:  err,
+	}
 }

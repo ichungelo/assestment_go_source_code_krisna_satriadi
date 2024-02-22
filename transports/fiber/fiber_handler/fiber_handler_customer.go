@@ -36,28 +36,21 @@ func (h *handlerCustomer) CreateCustomer() fiber.Handler {
 		err := json.Unmarshal(c.Body(), &req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrFailedUnmarshalJson,
-				Err:  err,
-			}
-
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			httpError := utilerrors.NewHttpError(utilerrors.ErrFailedUnmarshalJson, err)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		errCode := h.ServiceCustomer.CreateCustomer(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		httpError := h.ServiceCustomer.CreateCustomer(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, nil, nil, nil)
@@ -67,9 +60,9 @@ func (h *handlerCustomer) CreateCustomer() fiber.Handler {
 func (h *handlerCustomer) GetListCustomer() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 
-		data, errCode := h.ServiceCustomer.GetListCustomer()
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		data, httpError := h.ServiceCustomer.GetListCustomer()
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, data, nil, nil)
@@ -83,23 +76,15 @@ func (h *handlerCustomer) UpdateCustomerById() fiber.Handler {
 		err := json.Unmarshal(c.Body(), &req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrFailedUnmarshalJson,
-				Err:  err,
-			}
-
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			httpError := utilerrors.NewHttpError(utilerrors.ErrFailedUnmarshalJson, err)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		customerId, err := c.ParamsInt("customerId", 0)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrParseData,
-				Err:  err,
-			}
-
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseData, err)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		req.CustomerId = customerId
@@ -107,17 +92,13 @@ func (h *handlerCustomer) UpdateCustomerById() fiber.Handler {
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
-
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		errCode := h.ServiceCustomer.UpdateCustomerById(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		httpError := h.ServiceCustomer.UpdateCustomerById(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, nil, nil, nil)
@@ -129,12 +110,12 @@ func (h *handlerCustomer) DeleteCustomerById() fiber.Handler {
 		customerId, err := c.ParamsInt("customerId", 0)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
+			httpError := utilerrors.HttpError{
 				Code: utilerrors.ErrParseData,
 				Err:  err,
 			}
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, &httpError)
 		}
 
 		req := model.RequestDeleteCustomerById{
@@ -144,17 +125,13 @@ func (h *handlerCustomer) DeleteCustomerById() fiber.Handler {
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
-
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		errCode := h.ServiceCustomer.DeleteCustomerById(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		httpError := h.ServiceCustomer.DeleteCustomerById(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, nil, nil, nil)

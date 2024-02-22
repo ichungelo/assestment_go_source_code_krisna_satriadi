@@ -17,15 +17,13 @@ func NewServiceQuantity(rQuantity ports.RepositoryQuantity) *serviceQuantity {
 	}
 }
 
-func (s *serviceQuantity) DeleteQuantityById(req *model.RequestDeleteQuantityById) *utilerrors.ErrorCode {
+func (s *serviceQuantity) DeleteQuantityById(req *model.RequestDeleteQuantityById) *utilerrors.HttpError {
 	err := s.RepositoryQuantity.DeleteQuantityById(&req.ItemId, &req.InvoiceId)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedDeleteQuantity,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedDeleteQuantity, err)
+
+		return httpError
 	}
 
 	return nil

@@ -6,9 +6,9 @@ import (
 
 type DbConfig struct {
 	DbHost     string `envconfig:"DB_HOST" default:"localhost"`
-	DbPort     string    `envconfig:"DB_PORT" default:"5432"`
-	DbUsername string `envconfig:"DB_USER" default:"root2"`
-	DbPassword string `envconfig:"DB_PASSWORD" default:"root2"`
+	DbPort     string `envconfig:"DB_PORT" default:"5432"`
+	DbUsername string `envconfig:"DB_USER" default:"postgres"`
+	DbPassword string `envconfig:"DB_PASSWORD" default:"postgres"`
 }
 
 func NewDbConfig() *DbConfig {

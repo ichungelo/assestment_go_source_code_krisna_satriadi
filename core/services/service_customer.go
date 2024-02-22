@@ -17,7 +17,7 @@ func NewServiceCustomer(rCustomer ports.RepositoryCustomer) *serviceCustomer {
 	}
 }
 
-func (s *serviceCustomer) CreateCustomer(req *model.RequestCreateCustomer) *utilerrors.ErrorCode {
+func (s *serviceCustomer) CreateCustomer(req *model.RequestCreateCustomer) *utilerrors.HttpError {
 	var (
 		customer = model.Customer{
 			Name:    &req.Name,
@@ -28,32 +28,27 @@ func (s *serviceCustomer) CreateCustomer(req *model.RequestCreateCustomer) *util
 	err := s.RepositoryCustomer.CreateCustomer(&customer)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedCreateCustomer,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedCreateCustomer, err)
 
+		return httpError
 	}
 
 	return nil
 }
 
-func (s *serviceCustomer) GetListCustomer() ([]model.ResponseGetListCustomer, *utilerrors.ErrorCode) {
+func (s *serviceCustomer) GetListCustomer() ([]model.ResponseGetListCustomer, *utilerrors.HttpError) {
 	res, err := s.RepositoryCustomer.GetListCustomer()
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedGetCustomer,
-			Err:  err,
-		}
-		return nil, &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedGetCustomer, err)
+
+		return nil, httpError
 	}
 
 	return res, nil
 }
 
-func (s *serviceCustomer) UpdateCustomerById(req *model.RequestUpdateCustomerById) *utilerrors.ErrorCode {
+func (s *serviceCustomer) UpdateCustomerById(req *model.RequestUpdateCustomerById) *utilerrors.HttpError {
 	var (
 		customer = model.Customer{
 			Id:      &req.CustomerId,
@@ -65,27 +60,21 @@ func (s *serviceCustomer) UpdateCustomerById(req *model.RequestUpdateCustomerByI
 	err := s.RepositoryCustomer.UpdateCustomerById(&customer)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedUpdateCustomer,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedUpdateCustomer, err)
 
+		return httpError
 	}
 
 	return nil
 }
 
-func (s *serviceCustomer) DeleteCustomerById(req *model.RequestDeleteCustomerById) *utilerrors.ErrorCode {
+func (s *serviceCustomer) DeleteCustomerById(req *model.RequestDeleteCustomerById) *utilerrors.HttpError {
 	err := s.RepositoryCustomer.DeleteCustomerById(&req.CustomerId)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedDeleteCustomer,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedDeleteCustomer, err)
 
+		return httpError
 	}
 
 	return nil

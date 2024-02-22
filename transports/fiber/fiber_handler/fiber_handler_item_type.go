@@ -36,28 +36,22 @@ func (h *handlerItemType) CreateItemType() fiber.Handler {
 		err := json.Unmarshal(c.Body(), &req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrFailedUnmarshalJson,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrFailedUnmarshalJson, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		errCode := h.ServiceItemType.CreateItemType(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		httpError := h.ServiceItemType.CreateItemType(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, nil, nil, nil)
@@ -67,9 +61,9 @@ func (h *handlerItemType) CreateItemType() fiber.Handler {
 func (h *handlerItemType) GetListItemType() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 
-		data, errCode := h.ServiceItemType.GetListItemType()
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		data, httpError := h.ServiceItemType.GetListItemType()
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, data, nil, nil)
@@ -83,23 +77,17 @@ func (h *handlerItemType) UpdateItemTypeById() fiber.Handler {
 		err := json.Unmarshal(c.Body(), &req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrFailedUnmarshalJson,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrFailedUnmarshalJson, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		itemTypeId, err := c.ParamsInt("itemTypeId", 0)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrParseData,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseData, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		req.ItemTypeId = itemTypeId
@@ -107,17 +95,14 @@ func (h *handlerItemType) UpdateItemTypeById() fiber.Handler {
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		errCode := h.ServiceItemType.UpdateItemTypeById(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		httpError := h.ServiceItemType.UpdateItemTypeById(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, nil, nil, nil)
@@ -131,12 +116,9 @@ func (h *handlerItemType) DeleteItemTypeById() fiber.Handler {
 		itemTypeId, err := c.ParamsInt("itemTypeId", 0)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrParseData,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseData, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		req.ItemTypeId = itemTypeId
@@ -144,17 +126,14 @@ func (h *handlerItemType) DeleteItemTypeById() fiber.Handler {
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		errCode := h.ServiceItemType.DeleteItemTypeById(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		httpError := h.ServiceItemType.DeleteItemTypeById(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, nil, nil, nil)

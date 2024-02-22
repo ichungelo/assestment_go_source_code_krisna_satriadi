@@ -21,15 +21,13 @@ func NewServiceInvoice(rInvoice ports.RepositoryInvoice) *serviceInvoice {
 	}
 }
 
-func (s *serviceInvoice) CreateInvoice(req *model.RequestCreateInvoice) *utilerrors.ErrorCode {
+func (s *serviceInvoice) CreateInvoice(req *model.RequestCreateInvoice) *utilerrors.HttpError {
 	status, err := utilenum.EnumCheckInvoiceStatus(req.Status)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrValidate,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
+
+		return httpError
 	}
 
 	req.Status = *status
@@ -37,17 +35,15 @@ func (s *serviceInvoice) CreateInvoice(req *model.RequestCreateInvoice) *utilerr
 	err = s.RepositoryInvoice.CreateInvoice(req)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedCreateInvoice,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedCreateInvoice, err)
+
+		return httpError
 	}
 
 	return nil
 }
 
-func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listInvoice *model.ResponseGetListInvoice, apiErr *utilerrors.ErrorCode) {
+func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listInvoice *model.ResponseGetListInvoice, apiErr *utilerrors.HttpError) {
 
 	var (
 		isDelete   bool
@@ -100,11 +96,9 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 
 		if err != nil {
 			utillogger.Error(err, nil)
-			errData := utilerrors.ErrorCode{
-				Code: utilerrors.ErrParseDate,
-				Err:  err,
-			}
-			return nil, &errData
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseDate, err)
+
+			return nil, httpError
 		}
 		issueDate = &v
 	}
@@ -114,12 +108,9 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 
 		if err != nil {
 			utillogger.Error(err, nil)
-			errData := utilerrors.ErrorCode{
-				Code: utilerrors.ErrParseDate,
-				Err:  err,
-			}
-			return nil, &errData
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseDate, err)
 
+			return nil, httpError
 		}
 		dueDate = &v
 	}
@@ -127,17 +118,15 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 	res, err := s.RepositoryInvoice.GetListInvoice(isDelete, limit, offset, issueDate, req.Subject, totalItems, req.Customer, dueDate, invoiceId)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedGetInvoice,
-			Err:  err,
-		}
-		return nil, &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedGetInvoice, err)
+
+		return nil, httpError
 	}
 
 	return res, nil
 }
 
-func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*model.ResponseInvoiceById, *utilerrors.ErrorCode) {
+func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*model.ResponseInvoiceById, *utilerrors.HttpError) {
 	var (
 		subTotal   float64
 		tax        float64
@@ -146,11 +135,9 @@ func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*mode
 	res, err := s.RepositoryInvoice.GetInvoiceById(&req.InvoiceId)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedGetInvoice,
-			Err:  err,
-		}
-		return nil, &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedGetInvoice, err)
+
+		return nil, httpError
 
 	}
 
@@ -172,15 +159,13 @@ func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*mode
 	return res, nil
 }
 
-func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utilerrors.ErrorCode {
+func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utilerrors.HttpError {
 	status, err := utilenum.EnumCheckInvoiceStatus(req.Status)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrValidate,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
+
+		return httpError
 	}
 
 	req.Status = *status
@@ -189,11 +174,9 @@ func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) 
 		action, err := utilenum.EnumCheckInvoiceItemAction(v.Action)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errData := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
-			return &errData
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
+
+			return httpError
 		}
 
 		req.Items[i].Action = *action
@@ -201,26 +184,22 @@ func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) 
 	err = s.RepositoryInvoice.UpdateInvoiceById(req)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedUpdateInvoice,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedUpdateInvoice, err)
+
+		return httpError
 
 	}
 
 	return nil
 }
 
-func (s *serviceInvoice) DeleteInvoiceById(req *model.RequestDeleteInvoiceById) *utilerrors.ErrorCode {
+func (s *serviceInvoice) DeleteInvoiceById(req *model.RequestDeleteInvoiceById) *utilerrors.HttpError {
 	err := s.RepositoryInvoice.DeleteInvoiceById(&req.InvoiceId)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedDeleteInvoice,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedDeleteInvoice, err)
+
+		return httpError
 
 	}
 

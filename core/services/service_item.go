@@ -17,7 +17,7 @@ func NewServiceItem(rItem ports.RepositoryItem) *serviceItem {
 	}
 }
 
-func (s *serviceItem) CreateItem(req *model.RequestCreateItem) *utilerrors.ErrorCode {
+func (s *serviceItem) CreateItem(req *model.RequestCreateItem) *utilerrors.HttpError {
 	var (
 		item = model.Item{
 			Name:       &req.Name,
@@ -29,32 +29,27 @@ func (s *serviceItem) CreateItem(req *model.RequestCreateItem) *utilerrors.Error
 	err := s.RepositoryItem.CreateItem(&item)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedCreateItem,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedCreateItem, err)
 
+		return httpError
 	}
 
 	return nil
 }
 
-func (s *serviceItem) GetListItem() ([]model.ResponseGetListItem, *utilerrors.ErrorCode) {
+func (s *serviceItem) GetListItem() ([]model.ResponseGetListItem, *utilerrors.HttpError) {
 	res, err := s.RepositoryItem.GetListItem()
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedGetItem,
-			Err:  err,
-		}
-		return nil, &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedGetItem, err)
+
+		return nil, httpError
 	}
 
 	return res, nil
 }
 
-func (s *serviceItem) UpdateItemById(req *model.RequestUpdateItemById) *utilerrors.ErrorCode {
+func (s *serviceItem) UpdateItemById(req *model.RequestUpdateItemById) *utilerrors.HttpError {
 	var (
 		item = model.Item{
 			Id:         &req.ItemId,
@@ -67,26 +62,22 @@ func (s *serviceItem) UpdateItemById(req *model.RequestUpdateItemById) *utilerro
 	err := s.RepositoryItem.UpdateItemById(&item)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedUpdateItem,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedUpdateItem, err)
+
+		return httpError
 
 	}
 
 	return nil
 }
 
-func (s *serviceItem) DeleteItemById(req *model.RequestDeleteItemById) *utilerrors.ErrorCode {
+func (s *serviceItem) DeleteItemById(req *model.RequestDeleteItemById) *utilerrors.HttpError {
 	err := s.RepositoryItem.DeleteItemById(&req.ItemId)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedDeleteItem,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedDeleteItem, err)
+
+		return httpError
 
 	}
 

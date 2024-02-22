@@ -38,28 +38,22 @@ func (h *handlerInvoice) CreateInvoice() fiber.Handler {
 		err := json.Unmarshal(c.Body(), &req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrFailedUnmarshalJson,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrFailedUnmarshalJson, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		errCode := h.ServiceInvoice.CreateInvoice(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		httpError := h.ServiceInvoice.CreateInvoice(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, nil, nil, nil)
@@ -73,12 +67,9 @@ func (h *handlerInvoice) GetListInvoice() fiber.Handler {
 		err := c.QueryParser(&req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrParseData,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseData, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		bodyJson, _ := json.MarshalIndent(req, "", "	")
@@ -87,17 +78,15 @@ func (h *handlerInvoice) GetListInvoice() fiber.Handler {
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
+
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		data, errCode := h.ServiceInvoice.GetListInvoice(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		data, httpError := h.ServiceInvoice.GetListInvoice(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, data, nil, nil)
@@ -111,12 +100,10 @@ func (h *handlerInvoice) GetInvoiceById() fiber.Handler {
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrParseData,
-				Err:  err,
-			}
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseData, err)
+
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		req.InvoiceId = invoiceId
@@ -124,17 +111,14 @@ func (h *handlerInvoice) GetInvoiceById() fiber.Handler {
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		data, errCode := h.ServiceInvoice.GetInvoiceById(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		data, httpError := h.ServiceInvoice.GetInvoiceById(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, data, nil, nil)
@@ -148,23 +132,17 @@ func (h *handlerInvoice) UpdateInvoiceById() fiber.Handler {
 		err := json.Unmarshal(c.Body(), &req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrFailedUnmarshalJson,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrFailedUnmarshalJson, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrParseData,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseData, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		req.InvoiceId = invoiceId
@@ -172,17 +150,14 @@ func (h *handlerInvoice) UpdateInvoiceById() fiber.Handler {
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		errCode := h.ServiceInvoice.UpdateInvoiceById(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		httpError := h.ServiceInvoice.UpdateInvoiceById(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, nil, nil, nil)
@@ -196,12 +171,9 @@ func (h *handlerInvoice) DeleteInvoiceById() fiber.Handler {
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrParseData,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrParseData, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		req.InvoiceId = invoiceId
@@ -209,17 +181,14 @@ func (h *handlerInvoice) DeleteInvoiceById() fiber.Handler {
 		err = utilvalidator.Validate(req)
 		if err != nil {
 			utillogger.Error(err, nil)
-			errCode := utilerrors.ErrorCode{
-				Code: utilerrors.ErrValidate,
-				Err:  err,
-			}
+			httpError := utilerrors.NewHttpError(utilerrors.ErrValidate, err)
 
-			return fiberpresenter.Presenter(c, nil, nil, &errCode)
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
-		errCode := h.ServiceInvoice.DeleteInvoiceById(&req)
-		if errCode != nil {
-			return fiberpresenter.Presenter(c, nil, nil, errCode)
+		httpError := h.ServiceInvoice.DeleteInvoiceById(&req)
+		if httpError != nil {
+			return fiberpresenter.Presenter(c, nil, nil, httpError)
 		}
 
 		return fiberpresenter.Presenter(c, nil, nil, nil)

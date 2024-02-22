@@ -17,7 +17,7 @@ func NewServiceItemType(rItemType ports.RepositoryItemType) *serviceItemType {
 	}
 }
 
-func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *utilerrors.ErrorCode {
+func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *utilerrors.HttpError {
 	var (
 		ItemType = model.ItemType{
 			Name: &req.Name,
@@ -27,32 +27,28 @@ func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *util
 	err := s.RepositoryItemType.CreateItemType(&ItemType)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedCreateItemType,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedCreateItemType, err)
+
+		return httpError
 
 	}
 
 	return nil
 }
 
-func (s *serviceItemType) GetListItemType() ([]model.ResponseGetListItemType, *utilerrors.ErrorCode) {
+func (s *serviceItemType) GetListItemType() ([]model.ResponseGetListItemType, *utilerrors.HttpError) {
 	res, err := s.RepositoryItemType.GetListItemType()
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedGetItemType,
-			Err:  err,
-		}
-		return nil, &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedGetItemType, err)
+
+		return nil, httpError
 	}
 
 	return res, nil
 }
 
-func (s *serviceItemType) UpdateItemTypeById(req *model.RequestUpdateItemTypeById) *utilerrors.ErrorCode {
+func (s *serviceItemType) UpdateItemTypeById(req *model.RequestUpdateItemTypeById) *utilerrors.HttpError {
 	var (
 		itemType = model.ItemType{
 			Id:   &req.ItemTypeId,
@@ -63,26 +59,22 @@ func (s *serviceItemType) UpdateItemTypeById(req *model.RequestUpdateItemTypeByI
 	err := s.RepositoryItemType.UpdateItemTypeById(&itemType)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedUpdateItemType,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedUpdateItemType, err)
+
+		return httpError
 
 	}
 
 	return nil
 }
 
-func (s *serviceItemType) DeleteItemTypeById(req *model.RequestDeleteItemTypeById) *utilerrors.ErrorCode {
+func (s *serviceItemType) DeleteItemTypeById(req *model.RequestDeleteItemTypeById) *utilerrors.HttpError {
 	err := s.RepositoryItemType.DeleteItemTypeById(&req.ItemTypeId)
 	if err != nil {
 		utillogger.Error(err, nil)
-		errData := utilerrors.ErrorCode{
-			Code: utilerrors.ErrFailedDeleteItemType,
-			Err:  err,
-		}
-		return &errData
+		httpError := utilerrors.NewHttpError(utilerrors.ErrFailedDeleteItemType, err)
+
+		return httpError
 
 	}
 
