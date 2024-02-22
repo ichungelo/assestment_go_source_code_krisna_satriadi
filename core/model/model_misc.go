@@ -1,9 +1,13 @@
 package model
 
+import (
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
+)
+
 // Presenter metadata struct
 type ResponseMetadata struct {
 	Success    *bool               `json:"success"`
-	Code       *string             `json:"Code"`
+	Code       *utilerrors.Code    `json:"code"`
 	Error      *string             `json:"-"`
 	Message    *string             `json:"message"`
 	Pagination *ResponsePagination `json:"pagination,omitempty"`

@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/ports"
 	fiberpresenter "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/transports/fiber/fiber_presenter"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
 )
 
 type RouterFiberMisc interface {
@@ -26,8 +26,8 @@ func NewMiscHandler(sMisc ports.ServiceMisc) *handlerMisc {
 func (h *handlerMisc) NotFound() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// Return HTTP 404 status and JSON response.
-		errCode := utils.ErrorCode{
-			Code: utils.ERR_NOT_FOUND,
+		errCode := utilerrors.ErrorCode{
+			Code: utilerrors.ErrNotFound,
 			Err:  errors.New("page not found"),
 		}
 

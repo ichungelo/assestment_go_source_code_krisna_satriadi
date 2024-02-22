@@ -8,7 +8,9 @@ import (
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/ports"
 	fiberpresenter "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/transports/fiber/fiber_presenter"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
+	utillogger "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_logger"
+	utilvalidator "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_validator"
 )
 
 type RouterFiberInvoice interface {
@@ -35,20 +37,20 @@ func (h *handlerInvoice) CreateInvoice() fiber.Handler {
 
 		err := json.Unmarshal(c.Body(), &req)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_FAILED_UNMARSHAL_JSON,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrFailedUnmarshalJson,
 				Err:  err,
 			}
 
 			return fiberpresenter.Presenter(c, nil, nil, &errCode)
 		}
 
-		err = utils.Validate(req)
+		err = utilvalidator.Validate(req)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrValidate,
 				Err:  err,
 			}
 
@@ -70,9 +72,9 @@ func (h *handlerInvoice) GetListInvoice() fiber.Handler {
 
 		err := c.QueryParser(&req)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_PARSE_DATA,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrParseData,
 				Err:  err,
 			}
 
@@ -82,11 +84,11 @@ func (h *handlerInvoice) GetListInvoice() fiber.Handler {
 		bodyJson, _ := json.MarshalIndent(req, "", "	")
 		fmt.Println(string(bodyJson))
 
-		err = utils.Validate(req)
+		err = utilvalidator.Validate(req)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrValidate,
 				Err:  err,
 			}
 
@@ -108,9 +110,9 @@ func (h *handlerInvoice) GetInvoiceById() fiber.Handler {
 
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_PARSE_DATA,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrParseData,
 				Err:  err,
 			}
 
@@ -119,11 +121,11 @@ func (h *handlerInvoice) GetInvoiceById() fiber.Handler {
 
 		req.InvoiceId = invoiceId
 
-		err = utils.Validate(req)
+		err = utilvalidator.Validate(req)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrValidate,
 				Err:  err,
 			}
 
@@ -145,9 +147,9 @@ func (h *handlerInvoice) UpdateInvoiceById() fiber.Handler {
 
 		err := json.Unmarshal(c.Body(), &req)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_FAILED_UNMARSHAL_JSON,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrFailedUnmarshalJson,
 				Err:  err,
 			}
 
@@ -156,9 +158,9 @@ func (h *handlerInvoice) UpdateInvoiceById() fiber.Handler {
 
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_PARSE_DATA,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrParseData,
 				Err:  err,
 			}
 
@@ -167,11 +169,11 @@ func (h *handlerInvoice) UpdateInvoiceById() fiber.Handler {
 
 		req.InvoiceId = invoiceId
 
-		err = utils.Validate(req)
+		err = utilvalidator.Validate(req)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrValidate,
 				Err:  err,
 			}
 
@@ -193,9 +195,9 @@ func (h *handlerInvoice) DeleteInvoiceById() fiber.Handler {
 
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_PARSE_DATA,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrParseData,
 				Err:  err,
 			}
 
@@ -204,11 +206,11 @@ func (h *handlerInvoice) DeleteInvoiceById() fiber.Handler {
 
 		req.InvoiceId = invoiceId
 
-		err = utils.Validate(req)
+		err = utilvalidator.Validate(req)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrValidate,
 				Err:  err,
 			}
 

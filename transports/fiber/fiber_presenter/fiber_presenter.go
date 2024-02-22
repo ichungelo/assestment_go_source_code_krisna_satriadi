@@ -3,24 +3,24 @@ package fiberpresenter
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
 )
 
-func Presenter(c *fiber.Ctx, data interface{}, pagination *model.ResponsePagination, err *utils.ErrorCode) error {
+func Presenter(c *fiber.Ctx, data interface{}, pagination *model.ResponsePagination, err *utilerrors.ErrorCode) error {
 	var (
 		success bool = true
-		meta    utils.ErrorApi
+		meta    utilerrors.ErrorApi
 		errMsg  *string
 	)
 
-	resMeta := utils.ErrorCode{
-		Code: utils.SUCCESS,
+	resMeta := utilerrors.ErrorCode{
+		Code: utilerrors.Success,
 		Err:  nil,
 	}
-	meta = utils.GetErrorData(resMeta)
+	meta = utilerrors.GetErrorData(resMeta)
 
 	if err != nil {
-		meta = utils.GetErrorData(*err)
+		meta = utilerrors.GetErrorData(*err)
 		message := meta.Err.Error()
 		errMsg = &message
 		success = false

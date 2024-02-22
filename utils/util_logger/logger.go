@@ -1,4 +1,4 @@
-package utils
+package utillogger
 
 import (
 	"encoding/json"

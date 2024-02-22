@@ -1,38 +1,28 @@
 package config
 
 import (
-	"fmt"
-	"log"
+	"sync"
 
-	"github.com/joho/godotenv"
+	appconfig "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/config/app_config"
+	dbconfig "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/config/db_config"
 )
 
-// type to devine stage
-type Stage string
-
-const (
-	DEV     Stage = "dev"
-	STAGING Stage = "staging"
-	PROD    Stage = "prod"
-)
-
-func CheckStage(stage string) (Stage, error) {
-	mapStage := map[string]Stage{
-		"dev":     DEV,
-		"staging": STAGING,
-		"prod":    PROD,
-	}
-
-	if v, ok := mapStage[stage]; ok {
-		return v, nil
-	}
-
-	return "", fmt.Errorf("stage \"%s\" is not on list. select \"%s\", \"%s\", or \"%s\"", stage, DEV, STAGING, PROD)
+type Config struct {
+	DBConfig  *dbconfig.DbConfig
+	AppConfig *appconfig.AppConfig
 }
 
-func LoadEnv() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("Error loading .env file")
-	}
+var (
+	cfg  Config
+	once sync.Once
+)
+
+func GetEnv() *Config {
+	once.Do(func() {
+		cfg = Config{
+			DBConfig:  dbconfig.NewDbConfig(),
+			AppConfig: appconfig.NewAppConfig(),
+		}
+	})
+	return &cfg
 }

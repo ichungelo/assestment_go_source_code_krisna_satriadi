@@ -2,7 +2,7 @@ package ports
 
 import (
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
 )
 
 type RepositoryItem interface {
@@ -13,8 +13,8 @@ type RepositoryItem interface {
 }
 
 type ServiceItem interface {
-	CreateItem(req *model.RequestCreateItem) *utils.ErrorCode
-	GetListItem() ([]model.ResponseGetListItem, *utils.ErrorCode)
-	UpdateItemById(req *model.RequestUpdateItemById) *utils.ErrorCode
-	DeleteItemById(req *model.RequestDeleteItemById) *utils.ErrorCode
+	CreateItem(req *model.RequestCreateItem) *utilerrors.ErrorCode
+	GetListItem() ([]model.ResponseGetListItem, *utilerrors.ErrorCode)
+	UpdateItemById(req *model.RequestUpdateItemById) *utilerrors.ErrorCode
+	DeleteItemById(req *model.RequestDeleteItemById) *utilerrors.ErrorCode
 }

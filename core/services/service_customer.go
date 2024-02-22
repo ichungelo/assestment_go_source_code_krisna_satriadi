@@ -3,7 +3,8 @@ package services
 import (
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/ports"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
+	utillogger "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_logger"
 )
 
 type serviceCustomer struct {
@@ -16,7 +17,7 @@ func NewServiceCustomer(rCustomer ports.RepositoryCustomer) *serviceCustomer {
 	}
 }
 
-func (s *serviceCustomer) CreateCustomer(req *model.RequestCreateCustomer) *utils.ErrorCode {
+func (s *serviceCustomer) CreateCustomer(req *model.RequestCreateCustomer) *utilerrors.ErrorCode {
 	var (
 		customer = model.Customer{
 			Name:    &req.Name,
@@ -26,9 +27,9 @@ func (s *serviceCustomer) CreateCustomer(req *model.RequestCreateCustomer) *util
 
 	err := s.RepositoryCustomer.CreateCustomer(&customer)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_CREATE_CUSTOMER,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedCreateCustomer,
 			Err:  err,
 		}
 		return &errData
@@ -38,12 +39,12 @@ func (s *serviceCustomer) CreateCustomer(req *model.RequestCreateCustomer) *util
 	return nil
 }
 
-func (s *serviceCustomer) GetListCustomer() ([]model.ResponseGetListCustomer, *utils.ErrorCode) {
+func (s *serviceCustomer) GetListCustomer() ([]model.ResponseGetListCustomer, *utilerrors.ErrorCode) {
 	res, err := s.RepositoryCustomer.GetListCustomer()
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_GET_CUSTOMER,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedGetCustomer,
 			Err:  err,
 		}
 		return nil, &errData
@@ -52,7 +53,7 @@ func (s *serviceCustomer) GetListCustomer() ([]model.ResponseGetListCustomer, *u
 	return res, nil
 }
 
-func (s *serviceCustomer) UpdateCustomerById(req *model.RequestUpdateCustomerById) *utils.ErrorCode {
+func (s *serviceCustomer) UpdateCustomerById(req *model.RequestUpdateCustomerById) *utilerrors.ErrorCode {
 	var (
 		customer = model.Customer{
 			Id:      &req.CustomerId,
@@ -63,9 +64,9 @@ func (s *serviceCustomer) UpdateCustomerById(req *model.RequestUpdateCustomerByI
 
 	err := s.RepositoryCustomer.UpdateCustomerById(&customer)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_UPDATE_CUSTOMER,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedUpdateCustomer,
 			Err:  err,
 		}
 		return &errData
@@ -75,12 +76,12 @@ func (s *serviceCustomer) UpdateCustomerById(req *model.RequestUpdateCustomerByI
 	return nil
 }
 
-func (s *serviceCustomer) DeleteCustomerById(req *model.RequestDeleteCustomerById) *utils.ErrorCode {
+func (s *serviceCustomer) DeleteCustomerById(req *model.RequestDeleteCustomerById) *utilerrors.ErrorCode {
 	err := s.RepositoryCustomer.DeleteCustomerById(&req.CustomerId)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_DELETE_CUSTOMER,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedDeleteCustomer,
 			Err:  err,
 		}
 		return &errData

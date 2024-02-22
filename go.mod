@@ -2,9 +2,7 @@ module github.com/ichungelo/assestment_go_source_code_krisna_satriadi
 
 go 1.20
 
-require (
-	github.com/gofiber/fiber/v2 v2.51.0
-)
+require github.com/gofiber/fiber/v2 v2.51.0
 
 require (
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
@@ -24,6 +22,7 @@ require (
 	github.com/go-playground/validator/v10 v10.16.0
 	github.com/google/uuid v1.4.0 // indirect
 	github.com/joho/godotenv v1.5.1
+	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

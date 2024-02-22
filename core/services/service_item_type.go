@@ -3,7 +3,8 @@ package services
 import (
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/ports"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
+	utillogger "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_logger"
 )
 
 type serviceItemType struct {
@@ -16,7 +17,7 @@ func NewServiceItemType(rItemType ports.RepositoryItemType) *serviceItemType {
 	}
 }
 
-func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *utils.ErrorCode {
+func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *utilerrors.ErrorCode {
 	var (
 		ItemType = model.ItemType{
 			Name: &req.Name,
@@ -25,9 +26,9 @@ func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *util
 
 	err := s.RepositoryItemType.CreateItemType(&ItemType)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_CREATE_ITEM_TYPE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedCreateItemType,
 			Err:  err,
 		}
 		return &errData
@@ -37,12 +38,12 @@ func (s *serviceItemType) CreateItemType(req *model.RequestCreateItemType) *util
 	return nil
 }
 
-func (s *serviceItemType) GetListItemType() ([]model.ResponseGetListItemType, *utils.ErrorCode) {
+func (s *serviceItemType) GetListItemType() ([]model.ResponseGetListItemType, *utilerrors.ErrorCode) {
 	res, err := s.RepositoryItemType.GetListItemType()
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_GET_ITEM_TYPE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedGetItemType,
 			Err:  err,
 		}
 		return nil, &errData
@@ -51,7 +52,7 @@ func (s *serviceItemType) GetListItemType() ([]model.ResponseGetListItemType, *u
 	return res, nil
 }
 
-func (s *serviceItemType) UpdateItemTypeById(req *model.RequestUpdateItemTypeById) *utils.ErrorCode {
+func (s *serviceItemType) UpdateItemTypeById(req *model.RequestUpdateItemTypeById) *utilerrors.ErrorCode {
 	var (
 		itemType = model.ItemType{
 			Id:   &req.ItemTypeId,
@@ -61,9 +62,9 @@ func (s *serviceItemType) UpdateItemTypeById(req *model.RequestUpdateItemTypeByI
 
 	err := s.RepositoryItemType.UpdateItemTypeById(&itemType)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_UPDATE_ITEM_TYPE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedUpdateItemType,
 			Err:  err,
 		}
 		return &errData
@@ -73,12 +74,12 @@ func (s *serviceItemType) UpdateItemTypeById(req *model.RequestUpdateItemTypeByI
 	return nil
 }
 
-func (s *serviceItemType) DeleteItemTypeById(req *model.RequestDeleteItemTypeById) *utils.ErrorCode {
+func (s *serviceItemType) DeleteItemTypeById(req *model.RequestDeleteItemTypeById) *utilerrors.ErrorCode {
 	err := s.RepositoryItemType.DeleteItemTypeById(&req.ItemTypeId)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_DELETE_ITEM_TYPE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedDeleteItemType,
 			Err:  err,
 		}
 		return &errData

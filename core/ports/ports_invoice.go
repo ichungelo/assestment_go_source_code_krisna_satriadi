@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
 )
 
 type RepositoryInvoice interface {
@@ -16,9 +16,9 @@ type RepositoryInvoice interface {
 }
 
 type ServiceInvoice interface {
-	CreateInvoice(req *model.RequestCreateInvoice) *utils.ErrorCode
-	GetListInvoice(req *model.RequestGetListInvoice) (*model.ResponseGetListInvoice, *utils.ErrorCode)
-	GetInvoiceById(req *model.RequestGetInvoiceById) (*model.ResponseInvoiceById, *utils.ErrorCode)
-	UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utils.ErrorCode
-	DeleteInvoiceById(req *model.RequestDeleteInvoiceById) *utils.ErrorCode
+	CreateInvoice(req *model.RequestCreateInvoice) *utilerrors.ErrorCode
+	GetListInvoice(req *model.RequestGetListInvoice) (*model.ResponseGetListInvoice, *utilerrors.ErrorCode)
+	GetInvoiceById(req *model.RequestGetInvoiceById) (*model.ResponseInvoiceById, *utilerrors.ErrorCode)
+	UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utilerrors.ErrorCode
+	DeleteInvoiceById(req *model.RequestDeleteInvoiceById) *utilerrors.ErrorCode
 }

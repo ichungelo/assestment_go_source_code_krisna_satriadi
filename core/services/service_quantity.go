@@ -3,7 +3,8 @@ package services
 import (
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/ports"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
+	utillogger "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_logger"
 )
 
 type serviceQuantity struct {
@@ -16,12 +17,12 @@ func NewServiceQuantity(rQuantity ports.RepositoryQuantity) *serviceQuantity {
 	}
 }
 
-func (s *serviceQuantity) DeleteQuantityById(req *model.RequestDeleteQuantityById) *utils.ErrorCode {
+func (s *serviceQuantity) DeleteQuantityById(req *model.RequestDeleteQuantityById) *utilerrors.ErrorCode {
 	err := s.RepositoryQuantity.DeleteQuantityById(&req.ItemId, &req.InvoiceId)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_DELETE_QUANTITY,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedDeleteQuantity,
 			Err:  err,
 		}
 		return &errData

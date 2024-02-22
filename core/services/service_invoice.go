@@ -6,7 +6,9 @@ import (
 
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/ports"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilenum "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_enum"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
+	utillogger "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_logger"
 )
 
 type serviceInvoice struct {
@@ -19,12 +21,12 @@ func NewServiceInvoice(rInvoice ports.RepositoryInvoice) *serviceInvoice {
 	}
 }
 
-func (s *serviceInvoice) CreateInvoice(req *model.RequestCreateInvoice) *utils.ErrorCode {
-	status, err := utils.InvoiceStatusValidator(req.Status)
+func (s *serviceInvoice) CreateInvoice(req *model.RequestCreateInvoice) *utilerrors.ErrorCode {
+	status, err := utilenum.EnumCheckInvoiceStatus(req.Status)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_VALIDATE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrValidate,
 			Err:  err,
 		}
 		return &errData
@@ -34,9 +36,9 @@ func (s *serviceInvoice) CreateInvoice(req *model.RequestCreateInvoice) *utils.E
 
 	err = s.RepositoryInvoice.CreateInvoice(req)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_CREATE_INVOICE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedCreateInvoice,
 			Err:  err,
 		}
 		return &errData
@@ -45,7 +47,7 @@ func (s *serviceInvoice) CreateInvoice(req *model.RequestCreateInvoice) *utils.E
 	return nil
 }
 
-func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listInvoice *model.ResponseGetListInvoice, apiErr *utils.ErrorCode) {
+func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listInvoice *model.ResponseGetListInvoice, apiErr *utilerrors.ErrorCode) {
 
 	var (
 		isDelete   bool
@@ -97,9 +99,9 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 		v, err := time.Parse("2006-01-02", *req.IssueDate)
 
 		if err != nil {
-			utils.Error(err, nil)
-			errData := utils.ErrorCode{
-				Code: utils.ERR_PARSE_DATE,
+			utillogger.Error(err, nil)
+			errData := utilerrors.ErrorCode{
+				Code: utilerrors.ErrParseDate,
 				Err:  err,
 			}
 			return nil, &errData
@@ -111,9 +113,9 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 		v, err := time.Parse("2006-01-02", *req.DueDate)
 
 		if err != nil {
-			utils.Error(err, nil)
-			errData := utils.ErrorCode{
-				Code: utils.ERR_PARSE_DATE,
+			utillogger.Error(err, nil)
+			errData := utilerrors.ErrorCode{
+				Code: utilerrors.ErrParseDate,
 				Err:  err,
 			}
 			return nil, &errData
@@ -124,9 +126,9 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 
 	res, err := s.RepositoryInvoice.GetListInvoice(isDelete, limit, offset, issueDate, req.Subject, totalItems, req.Customer, dueDate, invoiceId)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_GET_INVOICE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedGetInvoice,
 			Err:  err,
 		}
 		return nil, &errData
@@ -135,7 +137,7 @@ func (s *serviceInvoice) GetListInvoice(req *model.RequestGetListInvoice) (listI
 	return res, nil
 }
 
-func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*model.ResponseInvoiceById, *utils.ErrorCode) {
+func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*model.ResponseInvoiceById, *utilerrors.ErrorCode) {
 	var (
 		subTotal   float64
 		tax        float64
@@ -143,9 +145,9 @@ func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*mode
 	)
 	res, err := s.RepositoryInvoice.GetInvoiceById(&req.InvoiceId)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_GET_INVOICE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedGetInvoice,
 			Err:  err,
 		}
 		return nil, &errData
@@ -170,12 +172,12 @@ func (s *serviceInvoice) GetInvoiceById(req *model.RequestGetInvoiceById) (*mode
 	return res, nil
 }
 
-func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utils.ErrorCode {
-	status, err := utils.InvoiceStatusValidator(req.Status)
+func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) *utilerrors.ErrorCode {
+	status, err := utilenum.EnumCheckInvoiceStatus(req.Status)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_VALIDATE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrValidate,
 			Err:  err,
 		}
 		return &errData
@@ -184,11 +186,11 @@ func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) 
 	req.Status = *status
 
 	for i, v := range req.Items {
-		action, err := utils.InvoiceItemActionValidator(v.Action)
+		action, err := utilenum.EnumCheckInvoiceItemAction(v.Action)
 		if err != nil {
-			utils.Error(err, nil)
-			errData := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE,
+			utillogger.Error(err, nil)
+			errData := utilerrors.ErrorCode{
+				Code: utilerrors.ErrValidate,
 				Err:  err,
 			}
 			return &errData
@@ -198,9 +200,9 @@ func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) 
 	}
 	err = s.RepositoryInvoice.UpdateInvoiceById(req)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_UPDATE_INVOICE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedUpdateInvoice,
 			Err:  err,
 		}
 		return &errData
@@ -210,12 +212,12 @@ func (s *serviceInvoice) UpdateInvoiceById(req *model.RequestUpdateInvoiceById) 
 	return nil
 }
 
-func (s *serviceInvoice) DeleteInvoiceById(req *model.RequestDeleteInvoiceById) *utils.ErrorCode {
+func (s *serviceInvoice) DeleteInvoiceById(req *model.RequestDeleteInvoiceById) *utilerrors.ErrorCode {
 	err := s.RepositoryInvoice.DeleteInvoiceById(&req.InvoiceId)
 	if err != nil {
-		utils.Error(err, nil)
-		errData := utils.ErrorCode{
-			Code: utils.ERR_FAILED_DELETE_INVOICE,
+		utillogger.Error(err, nil)
+		errData := utilerrors.ErrorCode{
+			Code: utilerrors.ErrFailedDeleteInvoice,
 			Err:  err,
 		}
 		return &errData

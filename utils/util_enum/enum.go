@@ -1,4 +1,4 @@
-package utils
+package utilenum
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func InvoiceStatusValidator(s string) (*string, error) {
+func EnumCheckInvoiceStatus(s string) (*string, error) {
 
 	mapStatus := map[string]string{
 		"PAID":   "PAID",
@@ -24,7 +24,7 @@ func InvoiceStatusValidator(s string) (*string, error) {
 	return &v, nil
 }
 
-func InvoiceItemActionValidator(s string) (*string, error) {
+func EnumCheckInvoiceItemAction(s string) (*string, error) {
 	mapAction := map[string]string{
 		"ADD":    "ADD",
 		"EDIT":   "EDIT",

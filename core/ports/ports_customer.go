@@ -2,7 +2,7 @@ package ports
 
 import (
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
 )
 
 type RepositoryCustomer interface {
@@ -13,8 +13,8 @@ type RepositoryCustomer interface {
 }
 
 type ServiceCustomer interface {
-	CreateCustomer(req *model.RequestCreateCustomer) *utils.ErrorCode
-	GetListCustomer() ([]model.ResponseGetListCustomer, *utils.ErrorCode)
-	UpdateCustomerById(req *model.RequestUpdateCustomerById) *utils.ErrorCode
-	DeleteCustomerById(req *model.RequestDeleteCustomerById) *utils.ErrorCode
+	CreateCustomer(req *model.RequestCreateCustomer) *utilerrors.ErrorCode
+	GetListCustomer() ([]model.ResponseGetListCustomer, *utilerrors.ErrorCode)
+	UpdateCustomerById(req *model.RequestUpdateCustomerById) *utilerrors.ErrorCode
+	DeleteCustomerById(req *model.RequestDeleteCustomerById) *utilerrors.ErrorCode
 }

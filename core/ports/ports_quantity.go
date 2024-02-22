@@ -2,7 +2,7 @@ package ports
 
 import (
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
 )
 
 type RepositoryQuantity interface {
@@ -10,5 +10,5 @@ type RepositoryQuantity interface {
 }
 
 type ServiceQuantity interface {
-	DeleteQuantityById(req *model.RequestDeleteQuantityById) *utils.ErrorCode
+	DeleteQuantityById(req *model.RequestDeleteQuantityById) *utilerrors.ErrorCode
 }

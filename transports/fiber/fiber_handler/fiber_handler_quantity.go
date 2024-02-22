@@ -5,7 +5,9 @@ import (
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/model"
 	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/core/ports"
 	fiberpresenter "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/transports/fiber/fiber_presenter"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utilerrors "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_errors"
+	utillogger "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_logger"
+	utilvalidator "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_validator"
 )
 
 type RouterFiberQuantity interface {
@@ -29,9 +31,9 @@ func (h *handlerQuantity) DeleteQuantityById() fiber.Handler {
 		invoiceId, err := c.ParamsInt("invoiceId", 0)
 		itemId, err := c.ParamsInt("itemId", 0)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_PARSE_DATA,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrParseData,
 				Err:  err,
 			}
 
@@ -41,11 +43,11 @@ func (h *handlerQuantity) DeleteQuantityById() fiber.Handler {
 		req.InvoiceId = invoiceId
 		req.ItemId = itemId
 
-		err = utils.Validate(req)
+		err = utilvalidator.Validate(req)
 		if err != nil {
-			utils.Error(err, nil)
-			errCode := utils.ErrorCode{
-				Code: utils.ERR_VALIDATE,
+			utillogger.Error(err, nil)
+			errCode := utilerrors.ErrorCode{
+				Code: utilerrors.ErrValidate,
 				Err:  err,
 			}
 

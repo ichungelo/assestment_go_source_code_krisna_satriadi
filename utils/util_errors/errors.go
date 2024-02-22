@@ -1,9 +1,9 @@
-package utils
+package utilerrors
 
 import "net/http"
 
 type ErrorApi struct {
-	Code           string `json:"code,omitempty"`
+	Code           Code   `json:"code,omitempty"`
 	Err            error  `json:"error,omitempty"`
 	Message        string `json:"message,omitempty"`
 	HttpStatusCode int    `json:"httpStatusCode,omitempty"`
@@ -16,37 +16,37 @@ type ErrorCode struct {
 }
 
 const (
-	SUCCESS                   Code = "000"
-	ERR_VALIDATE              Code = "001"
-	ERR_PARSE_DATA            Code = "002"
-	ERR_FAILED_UNMARSHAL_JSON Code = "003"
+	Success                Code = "000"
+	ErrValidate            Code = "001"
+	ErrParseData           Code = "002"
+	ErrFailedUnmarshalJson Code = "003"
 
-	ERR_FAILED_CREATE_CUSTOMER Code = "004"
-	ERR_FAILED_GET_CUSTOMER    Code = "005"
-	ERR_FAILED_UPDATE_CUSTOMER Code = "006"
-	ERR_FAILED_DELETE_CUSTOMER Code = "007"
+	ErrFailedCreateCustomer Code = "004"
+	ErrFailedGetCustomer    Code = "005"
+	ErrFailedUpdateCustomer Code = "006"
+	ErrFailedDeleteCustomer Code = "007"
 
-	ERR_FAILED_CREATE_INVOICE Code = "008"
-	ERR_FAILED_GET_INVOICE    Code = "009"
-	ERR_FAILED_UPDATE_INVOICE Code = "010"
-	ERR_FAILED_DELETE_INVOICE Code = "011"
+	ErrFailedCreateInvoice Code = "008"
+	ErrFailedGetInvoice    Code = "009"
+	ErrFailedUpdateInvoice Code = "010"
+	ErrFailedDeleteInvoice Code = "011"
 
-	ERR_FAILED_CREATE_ITEM_TYPE Code = "012"
-	ERR_FAILED_GET_ITEM_TYPE    Code = "013"
-	ERR_FAILED_UPDATE_ITEM_TYPE Code = "014"
-	ERR_FAILED_DELETE_ITEM_TYPE Code = "015"
+	ErrFailedCreateItemType Code = "012"
+	ErrFailedGetItemType    Code = "013"
+	ErrFailedUpdateItemType Code = "014"
+	ErrFailedDeleteItemType Code = "015"
 
-	ERR_FAILED_CREATE_ITEM Code = "016"
-	ERR_FAILED_GET_ITEM    Code = "017"
-	ERR_FAILED_UPDATE_ITEM Code = "018"
-	ERR_FAILED_DELETE_ITEM Code = "019"
+	ErrFailedCreateItem Code = "016"
+	ErrFailedGetItem    Code = "017"
+	ErrFailedUpdateItem Code = "018"
+	ErrFailedDeleteItem Code = "019"
 
-	ERR_FAILED_DELETE_QUANTITY Code = "020"
-	ERR_PARSE_DATE Code= "021"
+	ErrFailedDeleteQuantity Code = "020"
+	ErrParseDate            Code = "021"
 
-	ERR_NOT_FOUND             Code = "099"
-	ERR_INTERNAL_SERVER_ERROR Code = "100"
-	ERR_GENERAL               Code = "999"
+	ErrNotFound            Code = "099"
+	ErrInternalServerError Code = "100"
+	ErrGeneral             Code = "999"
 )
 
 func GetErrorData(errCode ErrorCode) ErrorApi {
@@ -56,134 +56,134 @@ func GetErrorData(errCode ErrorCode) ErrorApi {
 }
 
 var ErrorDataMap = map[Code]ErrorApi{
-	SUCCESS: {
-		Code:           "000",
+	Success: {
+		Code:           Success,
 		Message:        "Success",
 		HttpStatusCode: http.StatusOK,
 	},
-	ERR_VALIDATE: {
-		Code:           "001",
+	ErrValidate: {
+		Code:           ErrValidate,
 		Message:        "Failed to validate",
 		HttpStatusCode: http.StatusBadRequest,
 	},
-	ERR_PARSE_DATA: {
-		Code:           "002",
+	ErrParseData: {
+		Code:           ErrParseData,
 		Message:        "Failed to parse data",
 		HttpStatusCode: http.StatusBadRequest,
 	},
-	ERR_FAILED_UNMARSHAL_JSON: {
-		Code:           "003",
+	ErrFailedUnmarshalJson: {
+		Code:           ErrFailedUnmarshalJson,
 		Message:        "Failed to unmarshal json",
 		HttpStatusCode: http.StatusUnauthorized,
 	},
 
-	ERR_FAILED_CREATE_CUSTOMER: {
-		Code:           "004",
+	ErrFailedCreateCustomer: {
+		Code:           ErrFailedCreateCustomer,
 		Message:        "Failed to create customer",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_GET_CUSTOMER: {
-		Code:           "005",
+	ErrFailedGetCustomer: {
+		Code:           ErrFailedGetCustomer,
 		Message:        "Failed to get customer",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_UPDATE_CUSTOMER: {
-		Code:           "006",
+	ErrFailedUpdateCustomer: {
+		Code:           ErrFailedUpdateCustomer,
 		Message:        "Failed to update customer",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_DELETE_CUSTOMER: {
-		Code:           "007",
+	ErrFailedDeleteCustomer: {
+		Code:           ErrFailedDeleteCustomer,
 		Message:        "Failed to delete customer",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
 
-	ERR_FAILED_CREATE_INVOICE: {
-		Code:           "008",
+	ErrFailedCreateInvoice: {
+		Code:           ErrFailedCreateInvoice,
 		Message:        "Failed to create invoice",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_GET_INVOICE: {
-		Code:           "009",
+	ErrFailedGetInvoice: {
+		Code:           ErrFailedGetInvoice,
 		Message:        "Failed to get invoice",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_UPDATE_INVOICE: {
-		Code:           "010",
+	ErrFailedUpdateInvoice: {
+		Code:           ErrFailedUpdateInvoice,
 		Message:        "Failed to update invoice",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_DELETE_INVOICE: {
-		Code:           "011",
+	ErrFailedDeleteInvoice: {
+		Code:           ErrFailedDeleteInvoice,
 		Message:        "Failed to delete invoice",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
 
-	ERR_FAILED_CREATE_ITEM_TYPE: {
-		Code:           "012",
+	ErrFailedCreateItemType: {
+		Code:           ErrFailedCreateItemType,
 		Message:        "Failed to create item type",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_GET_ITEM_TYPE: {
-		Code:           "013",
+	ErrFailedGetItemType: {
+		Code:           ErrFailedGetItemType,
 		Message:        "Failed to get item type",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_UPDATE_ITEM_TYPE: {
-		Code:           "014",
+	ErrFailedUpdateItemType: {
+		Code:           ErrFailedUpdateItemType,
 		Message:        "Failed to update item type",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_DELETE_ITEM_TYPE: {
-		Code:           "015",
+	ErrFailedDeleteItemType: {
+		Code:           ErrFailedDeleteItemType,
 		Message:        "Failed to delete item type",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
 
-	ERR_FAILED_CREATE_ITEM: {
-		Code:           "016",
+	ErrFailedCreateItem: {
+		Code:           ErrFailedCreateItem,
 		Message:        "Failed to create item",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_GET_ITEM: {
-		Code:           "017",
+	ErrFailedGetItem: {
+		Code:           ErrFailedGetItem,
 		Message:        "Failed to get item",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_UPDATE_ITEM: {
-		Code:           "018",
+	ErrFailedUpdateItem: {
+		Code:           ErrFailedUpdateItem,
 		Message:        "Failed to update item",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_FAILED_DELETE_ITEM: {
-		Code:           "019",
+	ErrFailedDeleteItem: {
+		Code:           ErrFailedDeleteItem,
 		Message:        "Failed to delete item",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
 
-	ERR_FAILED_DELETE_QUANTITY: {
-		Code:           "020",
+	ErrFailedDeleteQuantity: {
+		Code:           ErrFailedDeleteQuantity,
 		Message:        "Failed to delete quantity",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_PARSE_DATE: {
-		Code:           "021",
+	ErrParseDate: {
+		Code:           ErrParseDate,
 		Message:        "Failed to parse date",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
 
-	ERR_NOT_FOUND: {
-		Code:           "099",
+	ErrNotFound: {
+		Code:           ErrNotFound,
 		Message:        "Page not found",
 		HttpStatusCode: http.StatusNotFound,
 	},
-	ERR_INTERNAL_SERVER_ERROR: {
-		Code:           "100",
+	ErrInternalServerError: {
+		Code:           ErrInternalServerError,
 		Message:        "internal server error",
 		HttpStatusCode: http.StatusInternalServerError,
 	},
-	ERR_GENERAL: {
-		Code:           "999",
+	ErrGeneral: {
+		Code:           ErrGeneral,
 		Message:        "error happen",
 		HttpStatusCode: http.StatusInternalServerError,
 	},

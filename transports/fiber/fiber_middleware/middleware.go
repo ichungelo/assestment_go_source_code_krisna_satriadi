@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils"
+	utillogger "github.com/ichungelo/assestment_go_source_code_krisna_satriadi/utils/util_logger"
 )
 
 // ! Fiber Middleware
@@ -35,7 +35,7 @@ func FiberMiddleware(a *fiber.App) {
 
 func LoggerMiddleware() func(*fiber.Ctx) error {
 	return func(c *fiber.Ctx) error {
-		utils.Request("start request", c)
+		utillogger.Request("start request", c)
 
 		return c.Next()
 	}
